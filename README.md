@@ -124,7 +124,7 @@ DevLab_MPU6050/
 | Parameter | Value |
 |---|---|
 | Library Name | DevLab_MPU6050 |
-| Version | 1.0.0 |
+| Version | 1.0.1 |
 | Communication | I2C |
 | Architecture | Cross-platform |
 
