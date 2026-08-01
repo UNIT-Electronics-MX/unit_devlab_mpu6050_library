@@ -1,6 +1,6 @@
-# DevLab_BMI323
+# DevLab_MPU6050
 
-Arduino library for the Bosch BMI323 6-axis IMU using direct I2C register communication.
+Arduino library for the MPU6050 6-axis IMU using direct I2C register communication.
 
 This library provides a lightweight and reliable object-oriented interface for:
 
@@ -8,78 +8,51 @@ This library provides a lightweight and reliable object-oriented interface for:
 - Gyroscope acquisition
 - Temperature reading
 
-Compatible with ESP32, RP2040, and Arduino-compatible platforms.
-
+Compatible with ESP32 and Arduino-compatible platforms.
 
 ---
 
 # Features
 
-- Direct 16-bit register communication
+- Direct register communication
 - Object-oriented API
 - Lightweight implementation
 - High-speed I2C communication
 - Supports custom I2C pins
-- Handles BMI323 dummy I2C bytes internally
-- Compatible with Bosch BMI323 devices
 - Optimized for embedded systems and rapid prototyping
 
 ---
 
-# Supported Interfaces
+# Supported Interface
 
 | Interface | Support Status |
 |---|---|
 | I2C | Supported |
-| SPI | Supported |
-
----
-
-# Installation
-
-## Manual Installation
-
-
-1. Open Arduino IDE
-2. Go to:
-
-```text
-Sketch -> Library Manager -> Search DevLab_BMI323...
-```
-
-3. Click on Install
-
-4. Compile and upload the examples for the sensor
 
 ---
 
 # Quick Start Example
 
 ```cpp
-#include <DevLab_BMI323.h>
+#include <DevLab_MPU6050.h>
 
-#define SDA_PIN 1
-#define SCL_PIN 6
+#define SDA_PIN 12
+#define SCL_PIN 22
 
-DevLab_BMI323 imu(Wire, 0x69);
-BMI323_SensorData data;
+DevLab_MPU6050 imu(Wire, 0x68);
+DevLab_MPU6050::SensorData data;
 
 void setup() {
-
   Serial.begin(115200);
 
   if (!imu.begin(SDA_PIN, SCL_PIN, 400000)) {
-
-    Serial.println("BMI323 initialization failed.");
-
+    Serial.println("MPU6050 initialization failed.");
     while (1);
   }
 }
 
 void loop() {
-
   if (imu.readData(data)) {
-
     Serial.print("ACC X: ");
     Serial.print(data.accX);
 
@@ -99,7 +72,7 @@ void loop() {
     Serial.println(data.gyrZ);
 
     Serial.print("Temperature: ");
-    Serial.print(data.temperatureC);
+    Serial.print(data.temperatureC, 2);
     Serial.println(" °C");
   }
 
@@ -111,15 +84,13 @@ void loop() {
 
 # Wiring Example
 
-| BMI323 | MCU |
+| MPU6050 | MCU |
 |---|---|
 | SDA | SDA |
 | SCL | SCL |
-| VDD | 3.3V |
-| VDDIO | 3.3V |
+| VCC | 3.3V |
 | GND | GND |
-| CSB | 3.3V |
-| SDO | 3.3V (0x69) or GND (0x68) |
+| AD0 | GND (0x68) or 3.3V (0x69) |
 
 ---
 
@@ -128,37 +99,22 @@ void loop() {
 | MCU Platform | Status |
 |---|---|
 | ESP32 | Tested |
-| ESP32-C6 | Tested |
-| ESP32-C5 | Tested |
-| ESP32-H2 | Tested |
 | Arduino-compatible boards | Compatible |
-
----
-
-# Notes
-
-BMI323 I2C burst reads include 2 dummy bytes at the beginning of the transfer.
-
-The DevLab_BMI323 library automatically handles those internally.
-
-Current library version supports only I2C communication.
-
-SPI support may be added in future releases.
 
 ---
 
 # Folder Structure
 
 ```text
-DevLab_BMI323/
+DevLab_MPU6050/
 ├── examples/
-│   └── BasicRead/
+│   └── I2C/
+│       └── MPU6050_BasicRead/
 ├── src/
-│   ├── DevLab_BMI323.h
-│   └── DevLab_BMI323.cpp
+│   ├── DevLab_MPU6050.h
+│   └── DevLab_MPU6050.cpp
 ├── library.properties
-├── README.md
-└── LICENSE
+└── README.md
 ```
 
 ---
@@ -167,18 +123,16 @@ DevLab_BMI323/
 
 | Parameter | Value |
 |---|---|
-| Library Name | DevLab_BMI323 |
+| Library Name | DevLab_MPU6050 |
 | Version | 1.0.0 |
-| Communication | I2C/SPI|
+| Communication | I2C |
 | Architecture | Cross-platform |
 
 ---
 
 # Author
 
-Adrián Rabadán Ortiz | Jonathan Mejorado Lopez 
-
-UNIT Electronics - DevLab Ecosystem
+UNIT Electronics
 
 ---
 
