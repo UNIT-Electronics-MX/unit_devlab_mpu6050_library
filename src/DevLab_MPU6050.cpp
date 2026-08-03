@@ -24,12 +24,12 @@ bool DevLab_MPU6050::begin(uint8_t sdaPin, uint8_t sclPin, uint32_t clock) {
 
   delay(50);
 
-  uint8_t whoAmI = readRegister8(REG_WHO_AM_I);
+  uint8_t whoAmI = WhoAmI();
   if (whoAmI != 0x68) {
     return false;
   }
 
-  writeRegister8(REG_PWR_MGMT_1, 0x00);
+  writeRegister8(REG_PWR_MGMT_1, 0x01); // Wake up the MPU6050
   delay(10);
 
   writeRegister8(REG_SMPLRT_DIV, 0x07);
@@ -38,6 +38,10 @@ bool DevLab_MPU6050::begin(uint8_t sdaPin, uint8_t sclPin, uint32_t clock) {
   writeRegister8(REG_ACCEL_CONFIG, 0x00);
 
   return true;
+}
+
+uint8_t DevLab_MPU6050::WhoAmI() {
+  return readRegister8(REG_WHO_AM_I);
 }
 
 bool DevLab_MPU6050::readData(SensorData &dataOut) {
@@ -67,16 +71,81 @@ bool DevLab_MPU6050::readData(SensorData &dataOut) {
   return true;
 }
 
+void DevLab_MPU6050::setDLPF(uint8_t dlpSetting) {
+  if(dlpSetting > 6) {
+    return;
+  }
+  uint8_t currentConfig = readRegister8(REG_CONFIG);
+  writeRegister8(REG_CONFIG,(currentConfig & 0xF8) | (dlpSetting & 0x07));
+}
+
 void DevLab_MPU6050::setAccelScale(uint8_t scale) {
+  
   _accelScale = scale;
-  writeRegister8(REG_ACCEL_CONFIG, scale);
+
+    if(scale > 3) {
+    return;
+  }
+  uint8_t currentConfig = readRegister8(REG_ACCEL_CONFIG);
+  writeRegister8(REG_ACCEL_CONFIG, (currentConfig & 0xE7) | ((scale & 0x03) << 3));
 }
 
 void DevLab_MPU6050::setGyroScale(uint8_t scale) {
   _gyroScale = scale;
-  writeRegister8(REG_GYRO_CONFIG, scale);
+
+  if(scale > 3) {
+    return;
+  }
+  uint8_t currentConfig = readRegister8(REG_GYRO_CONFIG);
+  writeRegister8(REG_GYRO_CONFIG, (currentConfig & 0xE7) | ((scale & 0x03) << 3));
 }
 
+void DevLab_MPU6050::sampleRateDiv(uint8_t div) {
+  writeRegister8(REG_SMPLRT_DIV, div);
+}
+
+void DevLab_MPU6050::setClkSource(uint8_t clkSource) {
+  if(clkSource > 7) {
+    return;
+  }
+  uint8_t currentConfig = readRegister8(REG_PWR_MGMT_1);
+  writeRegister8(REG_PWR_MGMT_1, (currentConfig & 0xF8) | (clkSource & 0x07));
+}
+
+void DevLab_MPU6050::setIntPinCfg(uint8_t intPinCfg) {
+  writeRegister8(REG_INT_PIN_CFG, intPinCfg);
+}
+
+void DevLab_MPU6050::setIntPinCfg(const interruptPinConfig &cfg) {
+  uint8_t value = (cfg.activeLow            << 7) |
+                  (cfg.openDrain             << 6) |
+                  (cfg.latchUntilCleared     << 5) |
+                  (cfg.clearOnRead           << 4) |
+                  (cfg.fsyncActiveLow        << 3) |
+                  (cfg.enableFSyncInterrupt  << 2) |
+                  (cfg.enableI2CBypass       << 1);
+  writeRegister8(REG_INT_PIN_CFG, value);
+}
+
+void DevLab_MPU6050::enableInterrupt(uint8_t sources) {
+  uint8_t currentConfig = readRegister8(REG_INT_ENABLE);
+  writeRegister8(REG_INT_ENABLE, currentConfig | sources);
+}
+
+void DevLab_MPU6050::disableInterrupt(uint8_t sources) {
+  uint8_t currentConfig = readRegister8(REG_INT_ENABLE);
+  writeRegister8(REG_INT_ENABLE, currentConfig & ~sources);
+}
+
+uint8_t DevLab_MPU6050::interruptStatus() {
+  return readRegister8(REG_INT_STATUS);
+}
+
+
+
+
+
+/******* Private Utility functions for register access *******/
 void DevLab_MPU6050::writeRegister8(uint8_t reg, uint8_t value) {
   _wire->beginTransmission(_address);
   _wire->write(reg);
