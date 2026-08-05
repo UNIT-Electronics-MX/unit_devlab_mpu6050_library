@@ -71,12 +71,40 @@ public:
     INT_FIFO_OVERFLOW = 0x10, // bit4, FIFO_OFLOW_EN
     INT_MOTION        = 0x40, // bit6, MOT_INT_EN
   };
+
+  /**
+   * @brief Construct a new DevLab_MPU6050 object.
+   * @param wire The I2C bus to use.
+   * @param address The I2C address of the MPU6050.
+   */
   DevLab_MPU6050(TwoWire &wire = Wire, uint8_t address = MPU6050_ADDRESS_AD0_LOW);
 
+  /**
+   * @brief Initialize the MPU6050.
+   * @param sdaPin The SDA pin.
+   * @param sclPin The SCL pin.
+   * @param clock The I2C clock frequency.
+   * @return True if the MPU6050 was initialized successfully, false otherwise.
+   */
   bool begin(uint8_t sdaPin, uint8_t sclPin, uint32_t clock = 400000);
+
+  /**
+   * @brief Read the sensor data.
+   * @param dataOut The sensor data to read.
+   * @return True if the data was read successfully, false otherwise.
+   */
   bool readData(SensorData &dataOut);
 
+  /**
+   * @brief Set the accelerometer scale.
+   * @param scale The accelerometer scale to apply.
+   */
   void setAccelScale(uint8_t scale);
+
+  /**
+   * @brief Set the gyroscope scale.
+   * @param scale The gyroscope scale to apply.
+   */
   void setGyroScale(uint8_t scale);
   /* Special functions and setting ups for the MPU6050 */
 

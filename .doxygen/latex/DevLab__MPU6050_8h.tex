@@ -1,0 +1,291 @@
+\doxysection{/\+home/\+jonathan/\+\+Documentos/\+\+Docs/\+github-\/mx/\+unit\+\_\+devlab\+\_\+mpu6050\+\_\+library/\+src/\+\+Dev\+Lab\+\_\+\+MPU6050.h File Reference}
+\hypertarget{DevLab__MPU6050_8h}{}\label{DevLab__MPU6050_8h}\index{/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/src/DevLab\_MPU6050.h@{/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/src/DevLab\_MPU6050.h}}
+{\ttfamily \+\#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \+\#include $<$Wire.\+h$>$}\newline
+Include dependency graph for Dev\+Lab\+\_\+\+MPU6050.\+h:\+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{DevLab__MPU6050_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{DevLab__MPU6050_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{classDevLab__MPU6050}{Dev\+Lab\+\_\+\+MPU6050}}
+\item 
+struct \doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData}{Dev\+Lab\+\_\+\+MPU6050::\+\+Sensor\+Data}}
+\item 
+struct \doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig}{Dev\+Lab\+\_\+\+MPU6050::\+interrupt\+Pin\+Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_ad9c8593ecb6f9a2865b8080add402cc6}{MPU6050\+\_\+\+ADDRESS\+\_\+\+AD0\+\_\+\+LOW}}~0x68
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_ad6e414ff4b69bb789ac93215a28c8d9c}{MPU6050\+\_\+\+ADDRESS\+\_\+\+AD0\+\_\+\+HIGH}}~0x69
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a26d31f2ecb2db6e0c183733b48f30b37}{REG\+\_\+\+INT\+\_\+\+PIN\+\_\+\+CFG}}~0x37
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a4c5c1b52ef4d960cba4eca99d406947a}{REG\+\_\+\+INT\+\_\+\+ENABLE}}~0x38
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a34aab8767fafeb628db9243bfa8f955a}{REG\+\_\+\+INT\+\_\+\+STATUS}}~0x3A
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a9221fccfb00e441e3ac409d76e37bf20}{REG\+\_\+\+SMPLRT\+\_\+\+DIV}}~0x19
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a679325263fb326462f7410d3292171be}{REG\+\_\+\+CONFIG}}~0x1A
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_aa80ccf68f0f11e35a8ff77039922b43d}{REG\+\_\+\+GYRO\+\_\+\+CONFIG}}~0x1B
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a7b8e959d8f7fc470648511d3917efee5}{REG\+\_\+\+ACCEL\+\_\+\+CONFIG}}~0x1C
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_aab8616dc1b72431e52f4b5370022933e}{REG\+\_\+\+ACCEL\+\_\+\+XOUT\+\_\+H}}~0x3B
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a521d96d4eadd598f6c97859b113052e0}{REG\+\_\+\+TEMP\+\_\+\+OUT\+\_\+H}}~0x41
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a85d18c4a4fbf5c526712a67b7edcc488}{REG\+\_\+\+GYRO\+\_\+\+XOUT\+\_\+H}}~0x43
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_aa22e489fc09f853f23e2586aac531ed6}{REG\+\_\+\+PWR\+\_\+\+MGMT\+\_\+1}}~0x6B
+\item 
+\+\#define \doxymbox{\hyperlink{DevLab__MPU6050_8h_a73f4728dfb5c82afcea7bee729af205c}{REG\+\_\+\+WHO\+\_\+\+AM\+\_\+I}}~0x75
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \doxymbox{\hyperlink{DevLab__MPU6050_8h_a9b63f172abb69078a05f2e6e5c94ea8d}{Sensor\+Data}} = \doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData}{Dev\+Lab\+\_\+\+MPU6050::\+\+Sensor\+Data}}
+\item 
+using \doxymbox{\hyperlink{DevLab__MPU6050_8h_a91176f72fb4c701f23b4c1fd8da4ff18}{interrupt\+Pin\+Config}} = \doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig}{Dev\+Lab\+\_\+\+MPU6050::\+interrupt\+Pin\+Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr auto \doxymbox{\hyperlink{DevLab__MPU6050_8h_a1ce02159ac0df386eca11b0f392f9134}{INT\+\_\+\+DATA\+\_\+\+READY}} = \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a3a5a7b335a55d4b126a76aa5c946296b}{Dev\+Lab\+\_\+\+MPU6050::\+\+INT\+\_\+\+DATA\+\_\+\+READY}}
+\item 
+constexpr auto \doxymbox{\hyperlink{DevLab__MPU6050_8h_a24965432fa975ef8c0aeee8ddccf1e06}{INT\+\_\+\+I2\+C\+\_\+\+MST}} = \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1aa9ee16bd5b0fc1ef451a4b730f5728f1}{Dev\+Lab\+\_\+\+MPU6050::\+\+INT\+\_\+\+I2\+C\+\_\+\+MST}}
+\item 
+constexpr auto \doxymbox{\hyperlink{DevLab__MPU6050_8h_a05d3f8acc3dca07895d26945a92762de}{INT\+\_\+\+FIFO\+\_\+\+OVERFLOW}} = \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a7bdc4615607507ce033eb0c573577ced}{Dev\+Lab\+\_\+\+MPU6050::\+\+INT\+\_\+\+FIFO\+\_\+\+OVERFLOW}}
+\item 
+constexpr auto \doxymbox{\hyperlink{DevLab__MPU6050_8h_ab609352bf1655672f201085d61fae3e0}{INT\+\_\+\+MOTION}} = \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a1ea6345ae090f1128b0bd2c5e7909a16}{Dev\+Lab\+\_\+\+MPU6050::\+\+INT\+\_\+\+MOTION}}
+\end{DoxyCompactItemize}
+
+
+\label{DevLab__MPU6050_8h_doc-define-members}
+\Hypertarget{DevLab__MPU6050_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{DevLab__MPU6050_8h_ad6e414ff4b69bb789ac93215a28c8d9c}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!MPU6050\_ADDRESS\_AD0\_HIGH@{MPU6050\_ADDRESS\_AD0\_HIGH}}
+\index{MPU6050\_ADDRESS\_AD0\_HIGH@{MPU6050\_ADDRESS\_AD0\_HIGH}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_ADDRESS\_AD0\_HIGH}{MPU6050\_ADDRESS\_AD0\_HIGH}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_ad6e414ff4b69bb789ac93215a28c8d9c} 
+\+\#define MPU6050\+\_\+\+ADDRESS\+\_\+\+AD0\+\_\+\+HIGH~0x69}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00028}{28}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_ad9c8593ecb6f9a2865b8080add402cc6}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!MPU6050\_ADDRESS\_AD0\_LOW@{MPU6050\_ADDRESS\_AD0\_LOW}}
+\index{MPU6050\_ADDRESS\_AD0\_LOW@{MPU6050\_ADDRESS\_AD0\_LOW}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_ADDRESS\_AD0\_LOW}{MPU6050\_ADDRESS\_AD0\_LOW}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_ad9c8593ecb6f9a2865b8080add402cc6} 
+\+\#define MPU6050\+\_\+\+ADDRESS\+\_\+\+AD0\+\_\+\+LOW~0x68}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00027}{27}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a7b8e959d8f7fc470648511d3917efee5}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_ACCEL\_CONFIG@{REG\_ACCEL\_CONFIG}}
+\index{REG\_ACCEL\_CONFIG@{REG\_ACCEL\_CONFIG}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_ACCEL\_CONFIG}{REG\_ACCEL\_CONFIG}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a7b8e959d8f7fc470648511d3917efee5} 
+\+\#define REG\+\_\+\+ACCEL\+\_\+\+CONFIG~0x1C}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00036}{36}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_aab8616dc1b72431e52f4b5370022933e}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_ACCEL\_XOUT\_H@{REG\_ACCEL\_XOUT\_H}}
+\index{REG\_ACCEL\_XOUT\_H@{REG\_ACCEL\_XOUT\_H}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_ACCEL\_XOUT\_H}{REG\_ACCEL\_XOUT\_H}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_aab8616dc1b72431e52f4b5370022933e} 
+\+\#define REG\+\_\+\+ACCEL\+\_\+\+XOUT\+\_\+H~0x3B}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00037}{37}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a679325263fb326462f7410d3292171be}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_CONFIG@{REG\_CONFIG}}
+\index{REG\_CONFIG@{REG\_CONFIG}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_CONFIG}{REG\_CONFIG}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a679325263fb326462f7410d3292171be} 
+\+\#define REG\+\_\+\+CONFIG~0x1A}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00034}{34}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_aa80ccf68f0f11e35a8ff77039922b43d}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_GYRO\_CONFIG@{REG\_GYRO\_CONFIG}}
+\index{REG\_GYRO\_CONFIG@{REG\_GYRO\_CONFIG}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_GYRO\_CONFIG}{REG\_GYRO\_CONFIG}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_aa80ccf68f0f11e35a8ff77039922b43d} 
+\+\#define REG\+\_\+\+GYRO\+\_\+\+CONFIG~0x1B}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00035}{35}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a85d18c4a4fbf5c526712a67b7edcc488}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_GYRO\_XOUT\_H@{REG\_GYRO\_XOUT\_H}}
+\index{REG\_GYRO\_XOUT\_H@{REG\_GYRO\_XOUT\_H}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_GYRO\_XOUT\_H}{REG\_GYRO\_XOUT\_H}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a85d18c4a4fbf5c526712a67b7edcc488} 
+\+\#define REG\+\_\+\+GYRO\+\_\+\+XOUT\+\_\+H~0x43}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00039}{39}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a4c5c1b52ef4d960cba4eca99d406947a}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_INT\_ENABLE@{REG\_INT\_ENABLE}}
+\index{REG\_INT\_ENABLE@{REG\_INT\_ENABLE}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_INT\_ENABLE}{REG\_INT\_ENABLE}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a4c5c1b52ef4d960cba4eca99d406947a} 
+\+\#define REG\+\_\+\+INT\+\_\+\+ENABLE~0x38}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00031}{31}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a26d31f2ecb2db6e0c183733b48f30b37}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_INT\_PIN\_CFG@{REG\_INT\_PIN\_CFG}}
+\index{REG\_INT\_PIN\_CFG@{REG\_INT\_PIN\_CFG}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_INT\_PIN\_CFG}{REG\_INT\_PIN\_CFG}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a26d31f2ecb2db6e0c183733b48f30b37} 
+\+\#define REG\+\_\+\+INT\+\_\+\+PIN\+\_\+\+CFG~0x37}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00030}{30}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a34aab8767fafeb628db9243bfa8f955a}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_INT\_STATUS@{REG\_INT\_STATUS}}
+\index{REG\_INT\_STATUS@{REG\_INT\_STATUS}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_INT\_STATUS}{REG\_INT\_STATUS}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a34aab8767fafeb628db9243bfa8f955a} 
+\+\#define REG\+\_\+\+INT\+\_\+\+STATUS~0x3A}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00032}{32}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_aa22e489fc09f853f23e2586aac531ed6}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_PWR\_MGMT\_1@{REG\_PWR\_MGMT\_1}}
+\index{REG\_PWR\_MGMT\_1@{REG\_PWR\_MGMT\_1}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_PWR\_MGMT\_1}{REG\_PWR\_MGMT\_1}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_aa22e489fc09f853f23e2586aac531ed6} 
+\+\#define REG\+\_\+\+PWR\+\_\+\+MGMT\+\_\+1~0x6B}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00040}{40}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a9221fccfb00e441e3ac409d76e37bf20}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_SMPLRT\_DIV@{REG\_SMPLRT\_DIV}}
+\index{REG\_SMPLRT\_DIV@{REG\_SMPLRT\_DIV}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_SMPLRT\_DIV}{REG\_SMPLRT\_DIV}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a9221fccfb00e441e3ac409d76e37bf20} 
+\+\#define REG\+\_\+\+SMPLRT\+\_\+\+DIV~0x19}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00033}{33}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a521d96d4eadd598f6c97859b113052e0}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_TEMP\_OUT\_H@{REG\_TEMP\_OUT\_H}}
+\index{REG\_TEMP\_OUT\_H@{REG\_TEMP\_OUT\_H}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_TEMP\_OUT\_H}{REG\_TEMP\_OUT\_H}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a521d96d4eadd598f6c97859b113052e0} 
+\+\#define REG\+\_\+\+TEMP\+\_\+\+OUT\+\_\+H~0x41}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00038}{38}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a73f4728dfb5c82afcea7bee729af205c}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!REG\_WHO\_AM\_I@{REG\_WHO\_AM\_I}}
+\index{REG\_WHO\_AM\_I@{REG\_WHO\_AM\_I}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{REG\_WHO\_AM\_I}{REG\_WHO\_AM\_I}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a73f4728dfb5c82afcea7bee729af205c} 
+\+\#define REG\+\_\+\+WHO\+\_\+\+AM\+\_\+I~0x75}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00041}{41}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+
+
+\label{DevLab__MPU6050_8h_doc-typedef-members}
+\Hypertarget{DevLab__MPU6050_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{DevLab__MPU6050_8h_a91176f72fb4c701f23b4c1fd8da4ff18}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!interruptPinConfig@{interruptPinConfig}}
+\index{interruptPinConfig@{interruptPinConfig}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{interruptPinConfig}{interruptPinConfig}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a91176f72fb4c701f23b4c1fd8da4ff18} 
+using \doxymbox{\hyperlink{DevLab__MPU6050_8h_a91176f72fb4c701f23b4c1fd8da4ff18}{interrupt\+Pin\+Config}} = \doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig}{Dev\+Lab\+\_\+\+MPU6050::\+interrupt\+Pin\+Config}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00178}{178}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a9b63f172abb69078a05f2e6e5c94ea8d}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!SensorData@{SensorData}}
+\index{SensorData@{SensorData}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{SensorData}{SensorData}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a9b63f172abb69078a05f2e6e5c94ea8d} 
+using \doxymbox{\hyperlink{DevLab__MPU6050_8h_a9b63f172abb69078a05f2e6e5c94ea8d}{Sensor\+Data}} = \doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData}{Dev\+Lab\+\_\+\+MPU6050::\+\+Sensor\+Data}}}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00177}{177}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+
+
+\label{DevLab__MPU6050_8h_doc-var-members}
+\Hypertarget{DevLab__MPU6050_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{DevLab__MPU6050_8h_a1ce02159ac0df386eca11b0f392f9134}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!INT\_DATA\_READY@{INT\_DATA\_READY}}
+\index{INT\_DATA\_READY@{INT\_DATA\_READY}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{INT\_DATA\_READY}{INT\_DATA\_READY}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a1ce02159ac0df386eca11b0f392f9134} 
+auto INT\+\_\+\+DATA\+\_\+\+READY = \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a3a5a7b335a55d4b126a76aa5c946296b}{Dev\+Lab\+\_\+\+MPU6050::\+\+INT\+\_\+\+DATA\+\_\+\+READY}}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00179}{179}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a05d3f8acc3dca07895d26945a92762de}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!INT\_FIFO\_OVERFLOW@{INT\_FIFO\_OVERFLOW}}
+\index{INT\_FIFO\_OVERFLOW@{INT\_FIFO\_OVERFLOW}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{INT\_FIFO\_OVERFLOW}{INT\_FIFO\_OVERFLOW}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a05d3f8acc3dca07895d26945a92762de} 
+auto INT\+\_\+\+FIFO\+\_\+\+OVERFLOW = \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a7bdc4615607507ce033eb0c573577ced}{Dev\+Lab\+\_\+\+MPU6050::\+\+INT\+\_\+\+FIFO\+\_\+\+OVERFLOW}}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00181}{181}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_a24965432fa975ef8c0aeee8ddccf1e06}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!INT\_I2C\_MST@{INT\_I2C\_MST}}
+\index{INT\_I2C\_MST@{INT\_I2C\_MST}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{INT\_I2C\_MST}{INT\_I2C\_MST}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_a24965432fa975ef8c0aeee8ddccf1e06} 
+auto INT\+\_\+\+I2\+C\+\_\+\+MST = \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1aa9ee16bd5b0fc1ef451a4b730f5728f1}{Dev\+Lab\+\_\+\+MPU6050::\+\+INT\+\_\+\+I2\+C\+\_\+\+MST}}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00180}{180}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+\Hypertarget{DevLab__MPU6050_8h_ab609352bf1655672f201085d61fae3e0}\index{DevLab\_MPU6050.h@{DevLab\_MPU6050.h}!INT\_MOTION@{INT\_MOTION}}
+\index{INT\_MOTION@{INT\_MOTION}!DevLab\_MPU6050.h@{DevLab\_MPU6050.h}}
+\doxysubsubsection{\texorpdfstring{INT\_MOTION}{INT\_MOTION}}
+{\footnotesize\ttfamily \label{DevLab__MPU6050_8h_ab609352bf1655672f201085d61fae3e0} 
+auto INT\+\_\+\+MOTION = \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a1ea6345ae090f1128b0bd2c5e7909a16}{Dev\+Lab\+\_\+\+MPU6050::\+\+INT\+\_\+\+MOTION}}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00182}{182}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+

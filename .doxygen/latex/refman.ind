@@ -1,0 +1,240 @@
+\begin{theindex}
+
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples Directory Reference}, 
+		\hyperpage{8}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C Directory Reference}, 
+		\hyperpage{8}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/BasicRead Directory Reference}, 
+		\hyperpage{8}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/BasicRead/BasicRead.ino}, 
+		\hyperpage{24}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/I2CIdentify Directory Reference}, 
+		\hyperpage{9}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/I2CIdentify/I2CIdentify.ino}, 
+		\hyperpage{25}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/MPU6050\_BasicRead Directory Reference}, 
+		\hyperpage{9}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/MPU6050\_BasicRead/MPU6050\_BasicRead.ino}, 
+		\hyperpage{25}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/MPU6050\_ConfigSweep Directory Reference}, 
+		\hyperpage{10}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/MPU6050\_ConfigSweep/MPU6050\_ConfigSweep.ino}, 
+		\hyperpage{26}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/MPU6050\_Interrupt Directory Reference}, 
+		\hyperpage{10}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/MPU6050\_Interrupt/MPU6050\_Interrupt.ino}, 
+		\hyperpage{29}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/basic\_Interrupt Directory Reference}, 
+		\hyperpage{7}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/basic\_Interrupt/basic\_Interrupt.ino}, 
+		\hyperpage{23}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/src Directory Reference}, 
+		\hyperpage{11}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/src/DevLab\_MPU6050.cpp}, 
+		\hyperpage{30}
+  \item {/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/src/DevLab\_MPU6050.h}, 
+		\hyperpage{33}, \hyperpage{37}
+
+  \indexspace
+
+  \item {accX}
+    \subitem {DevLab\_MPU6050::SensorData}, \hyperpage{21}
+  \item {accY}
+    \subitem {DevLab\_MPU6050::SensorData}, \hyperpage{21}
+  \item {accZ}
+    \subitem {DevLab\_MPU6050::SensorData}, \hyperpage{22}
+  \item {activeLow}
+    \subitem {DevLab\_MPU6050::interruptPinConfig}, \hyperpage{20}
+
+  \indexspace
+
+  \item {begin}
+    \subitem {DevLab\_MPU6050}, \hyperpage{15}
+
+  \indexspace
+
+  \item {clearOnRead}
+    \subitem {DevLab\_MPU6050::interruptPinConfig}, \hyperpage{20}
+
+  \indexspace
+
+  \item {DevLab\_MPU6050}, \hyperpage{13}
+    \subitem {begin}, \hyperpage{15}
+    \subitem {DevLab\_MPU6050}, \hyperpage{14}
+    \subitem {disableInterrupt}, \hyperpage{15}
+    \subitem {enableInterrupt}, \hyperpage{15}
+    \subitem {INT\_DATA\_READY}, \hyperpage{14}
+    \subitem {INT\_FIFO\_OVERFLOW}, \hyperpage{14}
+    \subitem {INT\_I2C\_MST}, \hyperpage{14}
+    \subitem {INT\_MOTION}, \hyperpage{14}
+    \subitem {InterruptSource}, \hyperpage{14}
+    \subitem {interruptStatus}, \hyperpage{16}
+    \subitem {readData}, \hyperpage{16}
+    \subitem {sampleRateDiv}, \hyperpage{16}
+    \subitem {setAccelScale}, \hyperpage{17}
+    \subitem {setClkSource}, \hyperpage{17}
+    \subitem {setDLPF}, \hyperpage{17}
+    \subitem {setGyroScale}, \hyperpage{18}
+    \subitem {setIntPinCfg}, \hyperpage{18}
+    \subitem {WhoAmI}, \hyperpage{19}
+  \item {DevLab\_MPU6050.h}
+    \subitem {INT\_DATA\_READY}, \hyperpage{36}
+    \subitem {INT\_FIFO\_OVERFLOW}, \hyperpage{36}
+    \subitem {INT\_I2C\_MST}, \hyperpage{36}
+    \subitem {INT\_MOTION}, \hyperpage{37}
+    \subitem {interruptPinConfig}, \hyperpage{36}
+    \subitem {MPU6050\_ADDRESS\_AD0\_HIGH}, \hyperpage{34}
+    \subitem {MPU6050\_ADDRESS\_AD0\_LOW}, \hyperpage{34}
+    \subitem {REG\_ACCEL\_CONFIG}, \hyperpage{34}
+    \subitem {REG\_ACCEL\_XOUT\_H}, \hyperpage{34}
+    \subitem {REG\_CONFIG}, \hyperpage{35}
+    \subitem {REG\_GYRO\_CONFIG}, \hyperpage{35}
+    \subitem {REG\_GYRO\_XOUT\_H}, \hyperpage{35}
+    \subitem {REG\_INT\_ENABLE}, \hyperpage{35}
+    \subitem {REG\_INT\_PIN\_CFG}, \hyperpage{35}
+    \subitem {REG\_INT\_STATUS}, \hyperpage{35}
+    \subitem {REG\_PWR\_MGMT\_1}, \hyperpage{35}
+    \subitem {REG\_SMPLRT\_DIV}, \hyperpage{35}
+    \subitem {REG\_TEMP\_OUT\_H}, \hyperpage{36}
+    \subitem {REG\_WHO\_AM\_I}, \hyperpage{36}
+    \subitem {SensorData}, \hyperpage{36}
+  \item {DevLab\_MPU6050::interruptPinConfig}, \hyperpage{19}
+    \subitem {activeLow}, \hyperpage{20}
+    \subitem {clearOnRead}, \hyperpage{20}
+    \subitem {enableFSyncInterrupt}, \hyperpage{20}
+    \subitem {enableI2CBypass}, \hyperpage{20}
+    \subitem {fsyncActiveLow}, \hyperpage{20}
+    \subitem {latchUntilCleared}, \hyperpage{20}
+    \subitem {openDrain}, \hyperpage{21}
+  \item {DevLab\_MPU6050::SensorData}, \hyperpage{21}
+    \subitem {accX}, \hyperpage{21}
+    \subitem {accY}, \hyperpage{21}
+    \subitem {accZ}, \hyperpage{22}
+    \subitem {gyrX}, \hyperpage{22}
+    \subitem {gyrY}, \hyperpage{22}
+    \subitem {gyrZ}, \hyperpage{22}
+    \subitem {temperatureC}, \hyperpage{22}
+    \subitem {tempRaw}, \hyperpage{22}
+  \item {disableInterrupt}
+    \subitem {DevLab\_MPU6050}, \hyperpage{15}
+
+  \indexspace
+
+  \item {enableFSyncInterrupt}
+    \subitem {DevLab\_MPU6050::interruptPinConfig}, \hyperpage{20}
+  \item {enableI2CBypass}
+    \subitem {DevLab\_MPU6050::interruptPinConfig}, \hyperpage{20}
+  \item {enableInterrupt}
+    \subitem {DevLab\_MPU6050}, \hyperpage{15}
+
+  \indexspace
+
+  \item {fsyncActiveLow}
+    \subitem {DevLab\_MPU6050::interruptPinConfig}, \hyperpage{20}
+
+  \indexspace
+
+  \item {gyrX}
+    \subitem {DevLab\_MPU6050::SensorData}, \hyperpage{22}
+  \item {gyrY}
+    \subitem {DevLab\_MPU6050::SensorData}, \hyperpage{22}
+  \item {gyrZ}
+    \subitem {DevLab\_MPU6050::SensorData}, \hyperpage{22}
+
+  \indexspace
+
+  \item {INT\_DATA\_READY}
+    \subitem {DevLab\_MPU6050}, \hyperpage{14}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{36}
+  \item {INT\_FIFO\_OVERFLOW}
+    \subitem {DevLab\_MPU6050}, \hyperpage{14}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{36}
+  \item {INT\_I2C\_MST}
+    \subitem {DevLab\_MPU6050}, \hyperpage{14}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{36}
+  \item {INT\_MOTION}
+    \subitem {DevLab\_MPU6050}, \hyperpage{14}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{37}
+  \item {interruptPinConfig}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{36}
+  \item {InterruptSource}
+    \subitem {DevLab\_MPU6050}, \hyperpage{14}
+  \item {interruptStatus}
+    \subitem {DevLab\_MPU6050}, \hyperpage{16}
+
+  \indexspace
+
+  \item {latchUntilCleared}
+    \subitem {DevLab\_MPU6050::interruptPinConfig}, \hyperpage{20}
+
+  \indexspace
+
+  \item {MPU6050\_ADDRESS\_AD0\_HIGH}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{34}
+  \item {MPU6050\_ADDRESS\_AD0\_LOW}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{34}
+
+  \indexspace
+
+  \item {openDrain}
+    \subitem {DevLab\_MPU6050::interruptPinConfig}, \hyperpage{21}
+
+  \indexspace
+
+  \item {readData}
+    \subitem {DevLab\_MPU6050}, \hyperpage{16}
+  \item {REG\_ACCEL\_CONFIG}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{34}
+  \item {REG\_ACCEL\_XOUT\_H}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{34}
+  \item {REG\_CONFIG}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{35}
+  \item {REG\_GYRO\_CONFIG}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{35}
+  \item {REG\_GYRO\_XOUT\_H}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{35}
+  \item {REG\_INT\_ENABLE}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{35}
+  \item {REG\_INT\_PIN\_CFG}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{35}
+  \item {REG\_INT\_STATUS}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{35}
+  \item {REG\_PWR\_MGMT\_1}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{35}
+  \item {REG\_SMPLRT\_DIV}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{35}
+  \item {REG\_TEMP\_OUT\_H}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{36}
+  \item {REG\_WHO\_AM\_I}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{36}
+
+  \indexspace
+
+  \item {sampleRateDiv}
+    \subitem {DevLab\_MPU6050}, \hyperpage{16}
+  \item {SensorData}
+    \subitem {DevLab\_MPU6050.h}, \hyperpage{36}
+  \item {setAccelScale}
+    \subitem {DevLab\_MPU6050}, \hyperpage{17}
+  \item {setClkSource}
+    \subitem {DevLab\_MPU6050}, \hyperpage{17}
+  \item {setDLPF}
+    \subitem {DevLab\_MPU6050}, \hyperpage{17}
+  \item {setGyroScale}
+    \subitem {DevLab\_MPU6050}, \hyperpage{18}
+  \item {setIntPinCfg}
+    \subitem {DevLab\_MPU6050}, \hyperpage{18}
+
+  \indexspace
+
+  \item {temperatureC}
+    \subitem {DevLab\_MPU6050::SensorData}, \hyperpage{22}
+  \item {tempRaw}
+    \subitem {DevLab\_MPU6050::SensorData}, \hyperpage{22}
+
+  \indexspace
+
+  \item {WhoAmI}
+    \subitem {DevLab\_MPU6050}, \hyperpage{19}
+
+\end{theindex}

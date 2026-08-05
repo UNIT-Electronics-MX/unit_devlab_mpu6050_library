@@ -1,0 +1,5 @@
+<map id="DevLab_MPU6050::WhoAmI" name="DevLab_MPU6050::WhoAmI">
+<area shape="rect" id="Node000001" title="Get the device ID." alt="" coords="237,5,440,31"/>
+<area shape="rect" id="Node000002" href="$classDevLab__MPU6050.html#a3d7c535959048e68c4f4d4a3ae6f77d8" title="Initialize the MPU6050." alt="" coords="5,5,189,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="224,21,189,21,189,15,224,15"/>
+</map>

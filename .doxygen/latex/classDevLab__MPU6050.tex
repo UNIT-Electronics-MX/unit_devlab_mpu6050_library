@@ -1,0 +1,405 @@
+\doxysection{Dev\+Lab\+\_\+\+MPU6050 Class Reference}
+\hypertarget{classDevLab__MPU6050}{}\label{classDevLab__MPU6050}\index{DevLab\_MPU6050@{DevLab\_MPU6050}}
+
+
+{\ttfamily \+\#include $<$Dev\+Lab\+\_\+\+MPU6050.\+h$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData}{Sensor\+Data}}
+\item 
+struct \doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig}{interrupt\+Pin\+Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1}{Interrupt\+Source}} :\+ uint8\+\_\+t \{ \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a3a5a7b335a55d4b126a76aa5c946296b}{INT\+\_\+\+DATA\+\_\+\+READY}} = 0x01
+, \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1aa9ee16bd5b0fc1ef451a4b730f5728f1}{INT\+\_\+\+I2\+C\+\_\+\+MST}} = 0x08
+, \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a7bdc4615607507ce033eb0c573577ced}{INT\+\_\+\+FIFO\+\_\+\+OVERFLOW}} = 0x10
+, \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a1ea6345ae090f1128b0bd2c5e7909a16}{INT\+\_\+\+MOTION}} = 0x40
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classDevLab__MPU6050_a4dc9a3096106ff027513a642335ba5d8}{Dev\+Lab\+\_\+\+MPU6050}} (Two\+Wire \&wire=Wire, uint8\+\_\+t address=0x68)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classDevLab__MPU6050}{Dev\+Lab\+\_\+\+MPU6050} object. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classDevLab__MPU6050_a3d7c535959048e68c4f4d4a3ae6f77d8}{begin}} (uint8\+\_\+t sda\+Pin, uint8\+\_\+t scl\+Pin, uint32\+\_\+t clock=400000)
+\begin{DoxyCompactList}\small\item\em Initialize the MPU6050. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{classDevLab__MPU6050_a039aef81058af172cfee5736a466f6c6}{read\+Data}} (\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData}{Sensor\+Data}} \&data\+Out)
+\begin{DoxyCompactList}\small\item\em Read the sensor data. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_a55dff706aa0bb8f8fa5d630895f9f5a2}{set\+Accel\+Scale}} (uint8\+\_\+t scale)
+\begin{DoxyCompactList}\small\item\em Set the accelerometer scale. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_af127be4f3907365d75b3ef3e060c5798}{set\+Gyro\+Scale}} (uint8\+\_\+t scale)
+\begin{DoxyCompactList}\small\item\em Set the gyroscope scale. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{classDevLab__MPU6050_ab36c7dc54df4703d3ca34cc98e6652ff}{Who\+AmI}} ()
+\begin{DoxyCompactList}\small\item\em Get the device ID. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_a7a2b663137e4c362173e3f993bb2e4dd}{set\+DLPF}} (uint8\+\_\+t dlp\+Setting)
+\begin{DoxyCompactList}\small\item\em Set the Digital Low Pass Filter (DLPF) setting. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_a661077c60d6e264ebc550a9ec02a0ffd}{sample\+Rate\+Div}} (uint8\+\_\+t div)
+\begin{DoxyCompactList}\small\item\em Set the sample rate divider. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_ab08479346f91704b326fb015f2ccbb26}{set\+Clk\+Source}} (uint8\+\_\+t clk\+Source)
+\begin{DoxyCompactList}\small\item\em Set the clock source. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_ad914809bd25aec5329bc2627f6a48632}{set\+Int\+Pin\+Cfg}} (uint8\+\_\+t int\+Pin\+Cfg)
+\begin{DoxyCompactList}\small\item\em Set the INT pin /\+ bypass configuration register directly. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_a9b665554cf1cffcf90cd9098b8f574d8}{set\+Int\+Pin\+Cfg}} (const \doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig}{interrupt\+Pin\+Config}} \&cfg)
+\begin{DoxyCompactList}\small\item\em Set the INT pin /\+ bypass configuration from a struct. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_af2d049ac14c22c97124f15dc247f89f1}{enable\+Interrupt}} (uint8\+\_\+t sources)
+\begin{DoxyCompactList}\small\item\em Enable one or more interrupt sources (OR\textquotesingle{}d together), leaving others untouched. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{classDevLab__MPU6050_a448774cd873a400cc8359e46f5411dae}{disable\+Interrupt}} (uint8\+\_\+t sources)
+\begin{DoxyCompactList}\small\item\em Disable one or more interrupt sources (OR\textquotesingle{}d together), leaving others untouched. \end{DoxyCompactList}\item 
+uint8\+\_\+t \doxymbox{\hyperlink{classDevLab__MPU6050_a7646fe29ef88cddb635c47da6be5af88}{interrupt\+Status}} ()
+\begin{DoxyCompactList}\small\item\em Read the INT\+\_\+\+STATUS register without side effects other than the hardware\textquotesingle{}s own clear-\/on-\/read. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00043}{43}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+
+
+\label{classDevLab__MPU6050_doc-enum-members}
+\Hypertarget{classDevLab__MPU6050_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!InterruptSource@{InterruptSource}}
+\index{InterruptSource@{InterruptSource}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{InterruptSource}{InterruptSource}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1} 
+enum \doxymbox{\hyperlink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1}{Dev\+Lab\+\_\+\+MPU6050::\+\+Interrupt\+Source}} :\+ uint8\+\_\+t}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INT\_DATA\_READY@{INT\_DATA\_READY}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\index{DevLab\_MPU6050@{DevLab\_MPU6050}!INT\_DATA\_READY@{INT\_DATA\_READY}}
+}\Hypertarget{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a3a5a7b335a55d4b126a76aa5c946296b}\label{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a3a5a7b335a55d4b126a76aa5c946296b} 
+INT\+\_\+\+DATA\+\_\+\+READY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INT\_I2C\_MST@{INT\_I2C\_MST}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\index{DevLab\_MPU6050@{DevLab\_MPU6050}!INT\_I2C\_MST@{INT\_I2C\_MST}}
+}\Hypertarget{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1aa9ee16bd5b0fc1ef451a4b730f5728f1}\label{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1aa9ee16bd5b0fc1ef451a4b730f5728f1} 
+INT\+\_\+\+I2\+C\+\_\+\+MST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INT\_FIFO\_OVERFLOW@{INT\_FIFO\_OVERFLOW}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\index{DevLab\_MPU6050@{DevLab\_MPU6050}!INT\_FIFO\_OVERFLOW@{INT\_FIFO\_OVERFLOW}}
+}\Hypertarget{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a7bdc4615607507ce033eb0c573577ced}\label{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a7bdc4615607507ce033eb0c573577ced} 
+INT\+\_\+\+FIFO\+\_\+\+OVERFLOW&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INT\_MOTION@{INT\_MOTION}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\index{DevLab\_MPU6050@{DevLab\_MPU6050}!INT\_MOTION@{INT\_MOTION}}
+}\Hypertarget{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a1ea6345ae090f1128b0bd2c5e7909a16}\label{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1a1ea6345ae090f1128b0bd2c5e7909a16} 
+INT\+\_\+\+MOTION&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8h_source_l00068}{68}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8h_source}{Dev\+Lab\+\_\+\+MPU6050.\+h}}.
+
+
+
+\label{classDevLab__MPU6050_doc-constructors}
+\Hypertarget{classDevLab__MPU6050_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classDevLab__MPU6050_a4dc9a3096106ff027513a642335ba5d8}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\index{DevLab\_MPU6050@{DevLab\_MPU6050}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{DevLab\_MPU6050()}{DevLab\_MPU6050()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a4dc9a3096106ff027513a642335ba5d8} 
+Dev\+Lab\+\_\+\+MPU6050::\+\+Dev\+Lab\+\_\+\+MPU6050 (\begin{DoxyParamCaption}\item[{Two\+Wire \&}]{wire}{ = {\ttfamily Wire}, }\item[{uint8\+\_\+t}]{address}{ = {\ttfamily 0x68}}\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{classDevLab__MPU6050}{Dev\+Lab\+\_\+\+MPU6050} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wire} & The I2C bus to use. \\
+\hline
+{\em address} & The I2C address of the MPU6050. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00014}{14}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+
+
+\label{classDevLab__MPU6050_doc-func-members}
+\Hypertarget{classDevLab__MPU6050_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classDevLab__MPU6050_a3d7c535959048e68c4f4d4a3ae6f77d8}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!begin@{begin}}
+\index{begin@{begin}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a3d7c535959048e68c4f4d4a3ae6f77d8} 
+bool Dev\+Lab\+\_\+\+MPU6050::\+begin (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sda\+Pin}{, }\item[{uint8\+\_\+t}]{scl\+Pin}{, }\item[{uint32\+\_\+t}]{clock}{ = {\ttfamily 400000}}\end{DoxyParamCaption})}
+
+
+
+Initialize the MPU6050. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sda\+Pin} & The SDA pin. \\
+\hline
+{\em scl\+Pin} & The SCL pin. \\
+\hline
+{\em clock} & The I2C clock frequency. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the MPU6050 was initialized successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00021}{21}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+Here is the call graph for this function:\+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDevLab__MPU6050_a3d7c535959048e68c4f4d4a3ae6f77d8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classDevLab__MPU6050_a448774cd873a400cc8359e46f5411dae}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!disableInterrupt@{disableInterrupt}}
+\index{disableInterrupt@{disableInterrupt}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{disableInterrupt()}{disableInterrupt()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a448774cd873a400cc8359e46f5411dae} 
+void Dev\+Lab\+\_\+\+MPU6050::\+disable\+Interrupt (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sources}{}\end{DoxyParamCaption})}
+
+
+
+Disable one or more interrupt sources (OR\textquotesingle{}d together), leaving others untouched. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sources} & Bitwise-\/\+OR of \doxylink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1}{Interrupt\+Source} values. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00135}{135}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_af2d049ac14c22c97124f15dc247f89f1}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!enableInterrupt@{enableInterrupt}}
+\index{enableInterrupt@{enableInterrupt}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{enableInterrupt()}{enableInterrupt()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_af2d049ac14c22c97124f15dc247f89f1} 
+void Dev\+Lab\+\_\+\+MPU6050::\+enable\+Interrupt (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sources}{}\end{DoxyParamCaption})}
+
+
+
+Enable one or more interrupt sources (OR\textquotesingle{}d together), leaving others untouched. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sources} & Bitwise-\/\+OR of \doxylink{classDevLab__MPU6050_a59497513ac9113b53e74e23e52b63ec1}{Interrupt\+Source} values. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00130}{130}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_a7646fe29ef88cddb635c47da6be5af88}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!interruptStatus@{interruptStatus}}
+\index{interruptStatus@{interruptStatus}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{interruptStatus()}{interruptStatus()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a7646fe29ef88cddb635c47da6be5af88} 
+uint8\+\_\+t Dev\+Lab\+\_\+\+MPU6050::\+interrupt\+Status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Read the INT\+\_\+\+STATUS register without side effects other than the hardware\textquotesingle{}s own clear-\/on-\/read. 
+
+\begin{DoxyReturn}{Returns}
+The interrupt status byte. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00140}{140}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_a039aef81058af172cfee5736a466f6c6}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!readData@{readData}}
+\index{readData@{readData}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{readData()}{readData()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a039aef81058af172cfee5736a466f6c6} 
+bool Dev\+Lab\+\_\+\+MPU6050::\+read\+Data (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData}{Sensor\+Data}} \&}]{data\+Out}{}\end{DoxyParamCaption})}
+
+
+
+Read the sensor data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\+Out} & The sensor data to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the data was read successfully, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00047}{47}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_a661077c60d6e264ebc550a9ec02a0ffd}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!sampleRateDiv@{sampleRateDiv}}
+\index{sampleRateDiv@{sampleRateDiv}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{sampleRateDiv()}{sampleRateDiv()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a661077c60d6e264ebc550a9ec02a0ffd} 
+void Dev\+Lab\+\_\+\+MPU6050::\+sample\+Rate\+Div (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{div}{}\end{DoxyParamCaption})}
+
+
+
+Set the sample rate divider. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em div} & The sample rate divider to apply. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00103}{103}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_a55dff706aa0bb8f8fa5d630895f9f5a2}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!setAccelScale@{setAccelScale}}
+\index{setAccelScale@{setAccelScale}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{setAccelScale()}{setAccelScale()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a55dff706aa0bb8f8fa5d630895f9f5a2} 
+void Dev\+Lab\+\_\+\+MPU6050::\+set\+Accel\+Scale (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{scale}{}\end{DoxyParamCaption})}
+
+
+
+Set the accelerometer scale. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale} & The accelerometer scale to apply. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00082}{82}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_ab08479346f91704b326fb015f2ccbb26}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!setClkSource@{setClkSource}}
+\index{setClkSource@{setClkSource}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{setClkSource()}{setClkSource()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_ab08479346f91704b326fb015f2ccbb26} 
+void Dev\+Lab\+\_\+\+MPU6050::\+set\+Clk\+Source (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{clk\+Source}{}\end{DoxyParamCaption})}
+
+
+
+Set the clock source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em clk\+Source} & The clock source to apply. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00107}{107}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_a7a2b663137e4c362173e3f993bb2e4dd}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!setDLPF@{setDLPF}}
+\index{setDLPF@{setDLPF}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{setDLPF()}{setDLPF()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a7a2b663137e4c362173e3f993bb2e4dd} 
+void Dev\+Lab\+\_\+\+MPU6050::\+set\+DLPF (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{dlp\+Setting}{}\end{DoxyParamCaption})}
+
+
+
+Set the Digital Low Pass Filter (DLPF) setting. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dlp\+Setting} & The DLPF setting to apply. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00074}{74}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_af127be4f3907365d75b3ef3e060c5798}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!setGyroScale@{setGyroScale}}
+\index{setGyroScale@{setGyroScale}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{setGyroScale()}{setGyroScale()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_af127be4f3907365d75b3ef3e060c5798} 
+void Dev\+Lab\+\_\+\+MPU6050::\+set\+Gyro\+Scale (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{scale}{}\end{DoxyParamCaption})}
+
+
+
+Set the gyroscope scale. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale} & The gyroscope scale to apply. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00093}{93}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_a9b665554cf1cffcf90cd9098b8f574d8}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!setIntPinCfg@{setIntPinCfg}}
+\index{setIntPinCfg@{setIntPinCfg}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{setIntPinCfg()}{setIntPinCfg()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_a9b665554cf1cffcf90cd9098b8f574d8} 
+void Dev\+Lab\+\_\+\+MPU6050::\+set\+Int\+Pin\+Cfg (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig}{interrupt\+Pin\+Config}} \&}]{cfg}{}\end{DoxyParamCaption})}
+
+
+
+Set the INT pin /\+ bypass configuration from a struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cfg} & The interrupt pin configuration to apply. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00119}{119}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_ad914809bd25aec5329bc2627f6a48632}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!setIntPinCfg@{setIntPinCfg}}
+\index{setIntPinCfg@{setIntPinCfg}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{setIntPinCfg()}{setIntPinCfg()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_ad914809bd25aec5329bc2627f6a48632} 
+void Dev\+Lab\+\_\+\+MPU6050::\+set\+Int\+Pin\+Cfg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{int\+Pin\+Cfg}{}\end{DoxyParamCaption})}
+
+
+
+Set the INT pin /\+ bypass configuration register directly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em int\+Pin\+Cfg} & Raw byte to write to REG\+\_\+\+INT\+\_\+\+PIN\+\_\+\+CFG. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00115}{115}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+\Hypertarget{classDevLab__MPU6050_ab36c7dc54df4703d3ca34cc98e6652ff}\index{DevLab\_MPU6050@{DevLab\_MPU6050}!WhoAmI@{WhoAmI}}
+\index{WhoAmI@{WhoAmI}!DevLab\_MPU6050@{DevLab\_MPU6050}}
+\doxysubsubsection{\texorpdfstring{WhoAmI()}{WhoAmI()}}
+{\footnotesize\ttfamily \label{classDevLab__MPU6050_ab36c7dc54df4703d3ca34cc98e6652ff} 
+uint8\+\_\+t Dev\+Lab\+\_\+\+MPU6050::\+\+Who\+AmI (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Get the device ID. 
+
+\begin{DoxyReturn}{Returns}
+The device ID. 
+\end{DoxyReturn}
+
+
+Definition at line \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source_l00043}{43}} of file \doxymbox{\hyperlink{DevLab__MPU6050_8cpp_source}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}.
+
+Here is the caller graph for this function:\+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDevLab__MPU6050_ab36c7dc54df4703d3ca34cc98e6652ff_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+/\+home/\+jonathan/\+\+Documentos/\+\+Docs/\+github-\/mx/\+unit\+\_\+devlab\+\_\+mpu6050\+\_\+library/\+src/\+\doxymbox{\hyperlink{DevLab__MPU6050_8h}{Dev\+Lab\+\_\+\+MPU6050.\+h}}\item 
+/\+home/\+jonathan/\+\+Documentos/\+\+Docs/\+github-\/mx/\+unit\+\_\+devlab\+\_\+mpu6050\+\_\+library/\+src/\+\doxymbox{\hyperlink{DevLab__MPU6050_8cpp}{Dev\+Lab\+\_\+\+MPU6050.\+cpp}}\end{DoxyCompactItemize}

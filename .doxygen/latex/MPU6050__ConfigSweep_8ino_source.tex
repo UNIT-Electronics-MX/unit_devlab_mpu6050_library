@@ -1,0 +1,217 @@
+\doxysection{MPU6050\+\_\+\+Config\+Sweep.\+ino}
+\hypertarget{MPU6050__ConfigSweep_8ino_source}{}\label{MPU6050__ConfigSweep_8ino_source}\index{/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/MPU6050\_ConfigSweep/MPU6050\_ConfigSweep.ino@{/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/examples/I2C/MPU6050\_ConfigSweep/MPU6050\_ConfigSweep.ino}}
+\doxymbox{\hyperlink{MPU6050__ConfigSweep_8ino}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00001}00001\ /*}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00002}00002\ \ \ MPU6050\_ConfigSweep.ino}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00004}00004\ \ \ Sweeps\ every\ combination\ of\ AccelScale,\ GyroScale\ and\ DLPF,\ applies}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00005}00005\ \ \ it\ to\ the\ MPU6050\ and\ prints\ one\ reading\ per\ combination\ as\ CSV\ over}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00006}00006\ \ \ Serial.\ Useful\ for\ characterizing\ how\ each\ setting\ affects\ the\ raw}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00007}00007\ \ \ output\ (e.g.\ importing\ the\ log\ into\ a\ spreadsheet\ or\ a\ script\ for}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00008}00008\ \ \ analysis).}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00010}00010\ \ \ CSV\ columns:}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00011}00011\ \ \ accelScale,gyroScale,dlpf,smplrtDiv,accX,accY,accZ,gyrX,gyrY,gyrZ,tempC,}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00012}00012\ \ \ gyroBW\_Hz,outputRate\_Hz,nyquist\_Hz,dlpf\_below\_nyquist}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00013}00013\ */}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00015}00015\ \#include\ <DevLab\_MPU6050.h>}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00017}00017\ \#define\ SDA\_PIN\ 6}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00018}00018\ \#define\ SCL\_PIN\ 7}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00019}00019\ \#define\ MPU6050\_ADDR\ 0x68}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00021}00021\ DevLab\_MPU6050\ imu(Wire,\ MPU6050\_ADDR);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00022}00022\ DevLab\_MPU6050::SensorData\ data;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00024}00024\ const\ uint8\_t\ ACCEL\_SCALES[]\ \ =\ \{0,\ 1,\ 2,\ 3\};}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00025}00025\ const\ uint8\_t\ GYRO\_SCALES[]\ \ \ =\ \{0,\ 1,\ 2,\ 3\};}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00026}00026\ const\ uint8\_t\ DLPF\_SETTINGS[]\ =\ \{0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6\};}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00028}00028\ //\ Element\ counts\ computed\ explicitly\ -\/-\/\ sizeof(array)\ on\ a\ uint8\_t[]}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00029}00029\ //\ happens\ to\ equal\ the\ element\ count\ only\ because\ uint8\_t\ is\ 1\ byte.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00030}00030\ const\ uint8\_t\ N\_ACCEL\ =\ sizeof(ACCEL\_SCALES)\ \ /\ sizeof(ACCEL\_SCALES[0]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00031}00031\ const\ uint8\_t\ N\_GYRO\ \ =\ sizeof(GYRO\_SCALES)\ \ \ /\ sizeof(GYRO\_SCALES[0]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00032}00032\ const\ uint8\_t\ N\_DLPF\ \ =\ sizeof(DLPF\_SETTINGS)\ /\ sizeof(DLPF\_SETTINGS[0]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00034}00034\ const\ uint8\_t\ CLK\_SOURCE\_PLL\_GYRO\_X\ =\ 1;\ //\ stable\ reference,\ recommended\ by\ Invensense}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00036}00036\ //\ DLPF\_CFG\ bandwidths\ in\ Hz\ (MPU-\/6000/6050\ register\ map,\ DLPF\_CFG\ table).}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00037}00037\ const\ float\ ACCEL\_BW\_HZ[]\ =\ \{260.0f,\ 184.0f,\ 94.0f,\ 44.0f,\ 21.0f,\ 10.0f,\ 5.0f\};}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00038}00038\ const\ float\ GYRO\_BW\_HZ[]\ \ =\ \{256.0f,\ 188.0f,\ 98.0f,\ 42.0f,\ 20.0f,\ 10.0f,\ 5.0f\};}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00040}00040\ //\ Nyquist\ must\ be\ at\ least\ this\ many\ times\ the\ DLPF\ corner\ frequency.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00041}00041\ const\ float\ NYQUIST\_MARGIN\ =\ 1.2f;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00043}00043\ //\ Number\ of\ sample\ periods\ to\ wait\ after\ an\ AFS\_SEL/FS\_SEL\ change\ before}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00044}00044\ //\ trusting\ readData()\ -\/-\/\ absorbs\ I2C\ transaction\ latency\ and\ ADC}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00045}00045\ //\ conversion\ jitter\ so\ we\ don't\ sample\ mid-\/transition.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00046}00046\ const\ uint8\_t\ SCALE\_SETTLE\_PERIODS\ =\ 5;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00048}00048\ //\ How\ many\ full\ sweeps\ to\ run\ back-\/to-\/back\ (set\ from\ setup(),\ or\ change}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00049}00049\ //\ here\ and\ call\ sweepAndPrint()\ once\ per\ iteration\ from\ setup()/loop()).}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00050}00050\ const\ uint16\_t\ N\_REPEATS\ =\ 100;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00052}00052\ //\ Internal\ sampling\ rate\ feeding\ SMPLRT\_DIV:\ 8kHz\ when\ the\ DLPF\ is}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00053}00053\ //\ bypassed\ (DLPF\_CFG=0),\ 1kHz\ for\ any\ other\ DLPF\ setting.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00054}00054\ float\ internalFsHz(uint8\_t\ dlpf)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00055}00055\ \ \ return\ (dlpf\ ==\ 0)\ ?\ 8000.0f\ :\ 1000.0f;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00056}00056\ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00058}00058\ //\ SMPLRT\_DIV\ per\ DLPF\_CFG,\ computed\ once\ at\ startup.\ Chosen\ as\ the}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00059}00059\ //\ LARGEST\ divisor\ (lowest\ output\ rate,\ gentlest\ on\ I2C\ traffic)\ that}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00060}00060\ //\ still\ keeps\ Nyquist\ >=\ NYQUIST\_MARGIN\ *\ corner.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00061}00061\ uint8\_t\ g\_smplrtDivByDlpf[7];}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00063}00063\ void\ computeSmplrtDivTable()\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00064}00064\ \ \ for\ (uint8\_t\ d\ =\ 0;\ d\ <\ N\_DLPF;\ d++)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00065}00065\ \ \ \ \ uint8\_t\ dlpf\ =\ DLPF\_SETTINGS[d];}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00066}00066\ \ \ \ \ float\ fsBase\ =\ internalFsHz(dlpf);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00067}00067\ \ \ \ \ float\ cornerHz\ =\ min(ACCEL\_BW\_HZ[d],\ GYRO\_BW\_HZ[d]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00069}00069\ \ \ \ \ float\ maxRatio\ =\ fsBase\ /\ (2.0f\ *\ NYQUIST\_MARGIN\ *\ cornerHz);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00070}00070\ \ \ \ \ long\ divCandidate\ =\ (long)floor(maxRatio\ -\/\ 1.0f);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00072}00072\ \ \ \ \ if\ (divCandidate\ <\ 0)\ \ \ divCandidate\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00073}00073\ \ \ \ \ if\ (divCandidate\ >\ 255)\ divCandidate\ =\ 255;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00075}00075\ \ \ \ \ g\_smplrtDivByDlpf[d]\ =\ (uint8\_t)divCandidate;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00076}00076\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00079}00079\ float\ samplePeriodMs(uint8\_t\ dIndex)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00080}00080\ \ \ uint8\_t\ dlpf\ =\ DLPF\_SETTINGS[dIndex];}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00081}00081\ \ \ float\ fsBase\ =\ internalFsHz(dlpf);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00082}00082\ \ \ uint8\_t\ div\ =\ g\_smplrtDivByDlpf[dIndex];}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00083}00083\ \ \ return\ 1000.0f\ *\ (1\ +\ div)\ /\ fsBase;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00084}00084\ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00086}00086\ //\ Time\ for\ the\ DLPF's\ single-\/pole\ low-\/pass\ to\ settle\ (\string~5\ time\ constants,}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00087}00087\ //\ tau\ =\ 1/(2*pi*BW)),\ using\ the\ tighter\ of\ the\ accel/gyro\ corner}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00088}00088\ //\ frequencies,\ plus\ one\ sample\ period\ so\ the\ settled\ value\ has\ actually}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00089}00089\ //\ been\ latched\ into\ the\ output\ registers.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00090}00090\ uint16\_t\ dlpfSettleMs(uint8\_t\ dIndex)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00091}00091\ \ \ float\ bwHz\ =\ min(ACCEL\_BW\_HZ[dIndex],\ GYRO\_BW\_HZ[dIndex]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00092}00092\ \ \ float\ tauMs\ =\ 1000.0f\ /\ (2.0f\ *\ PI\ *\ bwHz);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00093}00093\ \ \ float\ settleMs\ =\ 5.0f\ *\ tauMs\ +\ samplePeriodMs(dIndex);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00094}00094\ \ \ return\ (uint16\_t)ceil(settleMs);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00097}00097\ //\ Time\ to\ wait\ after\ an\ AFS\_SEL/FS\_SEL\ change:\ several\ sample\ periods.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00098}00098\ uint16\_t\ scaleSettleMs(uint8\_t\ dIndex)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00099}00099\ \ \ float\ settleMs\ =\ SCALE\_SETTLE\_PERIODS\ *\ samplePeriodMs(dIndex);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00100}00100\ \ \ return\ (uint16\_t)ceil(settleMs);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00103}00103\ void\ sweepAndPrint()\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00104}00104\ \ \ //\ -\/-\/-\/\ Repeat-\/call\ fix\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00105}00105\ \ \ //\ Explicitly\ (re)apply\ and\ settle\ the\ FIRST\ combination\ of\ the\ sweep}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00106}00106\ \ \ //\ (AFS\_SEL=0,\ FS\_SEL=0,\ DLPF\_CFG=0)\ before\ entering\ the\ nested\ loops.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00107}00107\ \ \ //\ Without\ this,\ if\ sweepAndPrint()\ is\ called\ back-\/to-\/back\ in\ a\ loop,}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00108}00108\ \ \ //\ this\ first\ reading\ follows\ immediately\ after\ the\ LAST\ combination}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00109}00109\ \ \ //\ of\ the\ previous\ call\ (AFS\_SEL=3,\ DLPF\_CFG=6)\ with\ no\ settle\ at\ all,}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00110}00110\ \ \ //\ and\ can\ carry\ over\ the\ previous\ call's\ scale\ (see\ header\ note).}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00111}00111\ \ \ //\ dlpfSettleMs()\ is\ used\ here\ (not\ scaleSettleMs())\ because\ it's\ the}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00112}00112\ \ \ //\ longer\ of\ the\ two\ and\ covers\ both\ the\ DLPF\ and\ the\ scale\ settling.}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00113}00113\ \ \ imu.setDLPF(DLPF\_SETTINGS[0]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00114}00114\ \ \ imu.sampleRateDiv(g\_smplrtDivByDlpf[0]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00115}00115\ \ \ imu.setAccelScale(ACCEL\_SCALES[0]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00116}00116\ \ \ imu.setGyroScale(GYRO\_SCALES[0]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00117}00117\ \ \ delay(dlpfSettleMs(0));}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00118}00118\ \ \ //\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00120}00120\ \ \ for\ (uint8\_t\ d\ =\ 0;\ d\ <\ N\_DLPF;\ d++)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00121}00121\ \ \ \ \ uint8\_t\ dlpf\ =\ DLPF\_SETTINGS[d];}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00122}00122\ \ \ \ \ uint8\_t\ div\ =\ g\_smplrtDivByDlpf[d];}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00124}00124\ \ \ \ \ imu.setDLPF(dlpf);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00125}00125\ \ \ \ \ imu.sampleRateDiv(div);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00126}00126\ \ \ \ \ delay(dlpfSettleMs(d));}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00128}00128\ \ \ \ \ float\ fsBase\ =\ internalFsHz(dlpf);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00129}00129\ \ \ \ \ float\ outputRateHz\ =\ fsBase\ /\ (1\ +\ div);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00130}00130\ \ \ \ \ float\ nyquistHz\ =\ outputRateHz\ /\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00131}00131\ \ \ \ \ float\ gyroBw\ =\ GYRO\_BW\_HZ[d];}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00132}00132\ \ \ \ \ float\ cornerHz\ =\ min(ACCEL\_BW\_HZ[d],\ GYRO\_BW\_HZ[d]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00133}00133\ \ \ \ \ bool\ belowNyquist\ =\ (cornerHz\ <=\ nyquistHz);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00135}00135\ \ \ \ \ uint16\_t\ scaleDelayMs\ =\ scaleSettleMs(d);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00137}00137\ \ \ \ \ for\ (uint8\_t\ a\ =\ 0;\ a\ <\ N\_ACCEL;\ a++)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00138}00138\ \ \ \ \ \ \ imu.setAccelScale(ACCEL\_SCALES[a]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00140}00140\ \ \ \ \ \ \ for\ (uint8\_t\ g\ =\ 0;\ g\ <\ N\_GYRO;\ g++)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00141}00141\ \ \ \ \ \ \ \ \ imu.setGyroScale(GYRO\_SCALES[g]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00143}00143\ \ \ \ \ \ \ \ \ delay(scaleDelayMs);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00145}00145\ \ \ \ \ \ \ \ \ Serial.print(ACCEL\_SCALES[a]);\ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00146}00146\ \ \ \ \ \ \ \ \ Serial.print(GYRO\_SCALES[g]);\ \ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00147}00147\ \ \ \ \ \ \ \ \ Serial.print(dlpf);\ \ \ \ \ \ \ \ \ \ \ \ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00148}00148\ \ \ \ \ \ \ \ \ Serial.print(div);\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00150}00150\ \ \ \ \ \ \ \ \ if\ (imu.readData(data))\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ Serial.print(data.accX);\ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ Serial.print(data.accY);\ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ Serial.print(data.accZ);\ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ Serial.print(data.gyrX);\ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ Serial.print(data.gyrY);\ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ Serial.print(data.gyrZ);\ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ Serial.print(data.temperatureC,\ 2);\ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ Serial.print(gyroBw,\ 1);\ \ \ \ \ \ \ \ \ \ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ Serial.print(outputRateHz,\ 2);\ \ \ \ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ Serial.print(nyquistHz,\ 2);\ \ \ \ \ \ \ Serial.print(',');}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ Serial.println(belowNyquist\ ?\ "{}OK"{}\ :\ "{}ALIAS\_RISK"{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00163}00163\ \ \ \ \ \ \ \ \ \}\ else\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ Serial.println("{}READ\_ERROR"{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00165}00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00166}00166\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00167}00167\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00168}00168\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00169}00169\ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00171}00171\ void\ setup()\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00172}00172\ \ \ Serial.begin(115200);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00173}00173\ \ \ delay(1000);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00175}00175\ \ \ Serial.println("{}Inicializando\ MPU6050..."{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00177}00177\ \ \ if\ (!imu.begin(SDA\_PIN,\ SCL\_PIN,\ 400000))\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00178}00178\ \ \ \ \ Serial.println("{}ERROR:\ MPU6050\ no\ encontrado."{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00179}00179\ \ \ \ \ while\ (1)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00180}00180\ \ \ \ \ \ \ delay(1000);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00181}00181\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00182}00182\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00184}00184\ \ \ imu.setClkSource(CLK\_SOURCE\_PLL\_GYRO\_X);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00185}00185\ \ \ computeSmplrtDivTable();}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00187}00187\ \ \ Serial.println("{}MPU6050\ inicializado\ correctamente."{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00188}00188\ \ \ Serial.println("{}Tabla\ SMPLRT\_DIV\ calculada\ por\ DLPF\_CFG\ (Nyquist\ >=\ 1.2x\ corner):"{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00189}00189\ \ \ for\ (uint8\_t\ d\ =\ 0;\ d\ <\ N\_DLPF;\ d++)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00190}00190\ \ \ \ \ Serial.print("{}\#\ \ DLPF\_CFG="{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00191}00191\ \ \ \ \ Serial.print(DLPF\_SETTINGS[d]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00192}00192\ \ \ \ \ Serial.print("{}\ -\/>\ SMPLRT\_DIV="{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00193}00193\ \ \ \ \ Serial.println(g\_smplrtDivByDlpf[d]);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00194}00194\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00196}00196\ \ \ Serial.print("{}Repeticiones\ del\ sweep\ completo:\ "{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00197}00197\ \ \ Serial.println(N\_REPEATS);}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00199}00199\ \ \ Serial.println("{}Iniciando\ sweep\ de\ configuraciones..."{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00200}00200\ \ \ Serial.println("{}accelScale,gyroScale,dlpf,smplrtDiv,accX,accY,accZ,gyrX,gyrY,gyrZ,tempC,gyroBW\_Hz,outputRate\_Hz,nyquist\_Hz,dlpf\_below\_nyquist"{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00202}00202\ \ \ for\ (uint16\_t\ i\ =\ 0;\ i\ <\ N\_REPEATS;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00203}00203\ \ \ \ \ sweepAndPrint();}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00204}00204\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00206}00206\ \ \ Serial.println("{}Sweep\ completo."{});}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00207}00207\ \}}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00209}00209\ void\ loop()\ \{}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00210}00210\ \ \ //\ Nothing\ to\ do\ here;\ the\ sweep\ runs\ once\ in\ setup().}
+\DoxyCodeLine{\Hypertarget{MPU6050__ConfigSweep_8ino_source_l00211}00211\ \}}
+
+\end{DoxyCode}

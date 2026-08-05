@@ -1,0 +1,186 @@
+\doxysection{Dev\+Lab\+\_\+\+MPU6050.\+cpp}
+\hypertarget{DevLab__MPU6050_8cpp_source}{}\label{DevLab__MPU6050_8cpp_source}\index{/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/src/DevLab\_MPU6050.cpp@{/home/jonathan/Documentos/Docs/github-\/mx/unit\_devlab\_mpu6050\_library/src/DevLab\_MPU6050.cpp}}
+\doxymbox{\hyperlink{DevLab__MPU6050_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00002}00002\ \textcolor{comment}{\ \ DevLab\_MPU6050.cpp}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00003}00003\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00004}00004\ \textcolor{comment}{\ \ Implementation\ file\ for\ the\ DevLab\_MPU6050\ Arduino\ library.}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00005}00005\ \textcolor{comment}{\ \ This\ library\ communicates\ with\ the\ MPU6050\ IMU\ using\ direct}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00006}00006\ \textcolor{comment}{\ \ register\ access\ over\ I2C.}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00007}00007\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00008}00008\ \textcolor{comment}{\ \ Author:}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00009}00009\ \textcolor{comment}{\ \ UNIT\ Electronics}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00010}00010\ \textcolor{comment}{*/}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{DevLab__MPU6050_8h}{DevLab\_MPU6050.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00014}\doxymbox{\hyperlink{classDevLab__MPU6050_a4dc9a3096106ff027513a642335ba5d8}{00014}}\ \doxymbox{\hyperlink{classDevLab__MPU6050_a4dc9a3096106ff027513a642335ba5d8}{DevLab\_MPU6050::DevLab\_MPU6050}}(TwoWire\ \&wire,\ uint8\_t\ address)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00015}00015\ \ \ \_wire\ =\ \&wire;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00016}00016\ \ \ \_address\ =\ address;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00017}00017\ \ \ \_accelScale\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00018}00018\ \ \ \_gyroScale\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00019}00019\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00021}\doxymbox{\hyperlink{classDevLab__MPU6050_a3d7c535959048e68c4f4d4a3ae6f77d8}{00021}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classDevLab__MPU6050_a3d7c535959048e68c4f4d4a3ae6f77d8}{DevLab\_MPU6050::begin}}(uint8\_t\ sdaPin,\ uint8\_t\ sclPin,\ uint32\_t\ clock)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00022}00022\ \ \ \_wire-\/>begin(sdaPin,\ sclPin);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00023}00023\ \ \ \_wire-\/>setClock(clock);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00025}00025\ \ \ delay(50);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00027}00027\ \ \ uint8\_t\ whoAmI\ =\ \doxymbox{\hyperlink{classDevLab__MPU6050_ab36c7dc54df4703d3ca34cc98e6652ff}{WhoAmI}}();}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00028}00028\ \ \ \textcolor{keywordflow}{if}\ (whoAmI\ !=\ 0x68)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00030}00030\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00032}00032\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_aa22e489fc09f853f23e2586aac531ed6}{REG\_PWR\_MGMT\_1}},\ 0x01);\ \textcolor{comment}{//\ Wake\ up\ the\ MPU6050}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00033}00033\ \ \ delay(10);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00035}00035\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a9221fccfb00e441e3ac409d76e37bf20}{REG\_SMPLRT\_DIV}},\ 0x07);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00036}00036\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a679325263fb326462f7410d3292171be}{REG\_CONFIG}},\ 0x06);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00037}00037\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_aa80ccf68f0f11e35a8ff77039922b43d}{REG\_GYRO\_CONFIG}},\ 0x08);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00038}00038\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a7b8e959d8f7fc470648511d3917efee5}{REG\_ACCEL\_CONFIG}},\ 0x10);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00040}00040\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00041}00041\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00043}\doxymbox{\hyperlink{classDevLab__MPU6050_ab36c7dc54df4703d3ca34cc98e6652ff}{00043}}\ uint8\_t\ \doxymbox{\hyperlink{classDevLab__MPU6050_ab36c7dc54df4703d3ca34cc98e6652ff}{DevLab\_MPU6050::WhoAmI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00044}00044\ \ \ \textcolor{keywordflow}{return}\ readRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a73f4728dfb5c82afcea7bee729af205c}{REG\_WHO\_AM\_I}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00047}\doxymbox{\hyperlink{classDevLab__MPU6050_a039aef81058af172cfee5736a466f6c6}{00047}}\ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{classDevLab__MPU6050_a039aef81058af172cfee5736a466f6c6}{DevLab\_MPU6050::readData}}(\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData}{SensorData}}\ \&dataOut)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00048}00048\ \ \ \_wire-\/>beginTransmission(\_address);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00049}00049\ \ \ \_wire-\/>write(\doxymbox{\hyperlink{DevLab__MPU6050_8h_aab8616dc1b72431e52f4b5370022933e}{REG\_ACCEL\_XOUT\_H}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00050}00050\ \ \ \textcolor{keywordflow}{if}\ (\_wire-\/>endTransmission(\textcolor{keyword}{false})\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00051}00051\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00052}00052\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00054}00054\ \ \ \_wire-\/>requestFrom(\_address,\ (uint8\_t)14,\ (uint8\_t)\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00056}00056\ \ \ \textcolor{keywordflow}{if}\ (\_wire-\/>available()\ <\ 14)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00058}00058\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00060}00060\ \ \ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_a5abec25ebeadab6a03a4dfbeb597b519}{accX}}\ =\ (int16\_t)(\_wire-\/>read()\ <<\ 8\ |\ \_wire-\/>read());}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00061}00061\ \ \ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_accf255d4fabfaf183c2a639d86d52e55}{accY}}\ =\ (int16\_t)(\_wire-\/>read()\ <<\ 8\ |\ \_wire-\/>read());}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00062}00062\ \ \ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_ad89115015d5a5bd38f9f589998552053}{accZ}}\ =\ (int16\_t)(\_wire-\/>read()\ <<\ 8\ |\ \_wire-\/>read());}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00064}00064\ \ \ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_aae98d87726e4629ff0db267335c02c4d}{tempRaw}}\ =\ (int16\_t)(\_wire-\/>read()\ <<\ 8\ |\ \_wire-\/>read());}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00065}00065\ \ \ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_a5a86d57bc83518d6ff7f9ddb49d7fb6c}{temperatureC}}\ =\ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_aae98d87726e4629ff0db267335c02c4d}{tempRaw}}\ /\ 340.0f\ +\ 36.53f;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00067}00067\ \ \ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_a60a276289dbd56180908eea5e28cc18f}{gyrX}}\ =\ (int16\_t)(\_wire-\/>read()\ <<\ 8\ |\ \_wire-\/>read());}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00068}00068\ \ \ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_a8818da36e4d4c1ae293a9ac3c5cefe81}{gyrY}}\ =\ (int16\_t)(\_wire-\/>read()\ <<\ 8\ |\ \_wire-\/>read());}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00069}00069\ \ \ dataOut.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1SensorData_a7e10c77a9426a4732d77f43c62e4e2d8}{gyrZ}}\ =\ (int16\_t)(\_wire-\/>read()\ <<\ 8\ |\ \_wire-\/>read());}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00071}00071\ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00074}\doxymbox{\hyperlink{classDevLab__MPU6050_a7a2b663137e4c362173e3f993bb2e4dd}{00074}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_a7a2b663137e4c362173e3f993bb2e4dd}{DevLab\_MPU6050::setDLPF}}(uint8\_t\ dlpSetting)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00075}00075\ \ \ \textcolor{keywordflow}{if}(dlpSetting\ >\ 6)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00077}00077\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00078}00078\ \ \ uint8\_t\ currentConfig\ =\ readRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a679325263fb326462f7410d3292171be}{REG\_CONFIG}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00079}00079\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a679325263fb326462f7410d3292171be}{REG\_CONFIG}},(currentConfig\ \&\ 0xF8)\ |\ (dlpSetting\ \&\ 0x07));}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00080}00080\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00082}\doxymbox{\hyperlink{classDevLab__MPU6050_a55dff706aa0bb8f8fa5d630895f9f5a2}{00082}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_a55dff706aa0bb8f8fa5d630895f9f5a2}{DevLab\_MPU6050::setAccelScale}}(uint8\_t\ scale)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00083}00083\ \ \ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00084}00084\ \ \ \_accelScale\ =\ scale;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00086}00086\ \ \ \ \ \textcolor{keywordflow}{if}(scale\ >\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00088}00088\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00089}00089\ \ \ uint8\_t\ currentConfig\ =\ readRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a7b8e959d8f7fc470648511d3917efee5}{REG\_ACCEL\_CONFIG}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00090}00090\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a7b8e959d8f7fc470648511d3917efee5}{REG\_ACCEL\_CONFIG}},\ (currentConfig\ \&\ 0xE7)\ |\ ((scale\ \&\ 0x03)\ <<\ 3));}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00093}\doxymbox{\hyperlink{classDevLab__MPU6050_af127be4f3907365d75b3ef3e060c5798}{00093}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_af127be4f3907365d75b3ef3e060c5798}{DevLab\_MPU6050::setGyroScale}}(uint8\_t\ scale)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00094}00094\ \ \ \_gyroScale\ =\ scale;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00096}00096\ \ \ \textcolor{keywordflow}{if}(scale\ >\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00097}00097\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00098}00098\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00099}00099\ \ \ uint8\_t\ currentConfig\ =\ readRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_aa80ccf68f0f11e35a8ff77039922b43d}{REG\_GYRO\_CONFIG}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00100}00100\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_aa80ccf68f0f11e35a8ff77039922b43d}{REG\_GYRO\_CONFIG}},\ (currentConfig\ \&\ 0xE7)\ |\ ((scale\ \&\ 0x03)\ <<\ 3));}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00103}\doxymbox{\hyperlink{classDevLab__MPU6050_a661077c60d6e264ebc550a9ec02a0ffd}{00103}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_a661077c60d6e264ebc550a9ec02a0ffd}{DevLab\_MPU6050::sampleRateDiv}}(uint8\_t\ div)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00104}00104\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a9221fccfb00e441e3ac409d76e37bf20}{REG\_SMPLRT\_DIV}},\ div);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00107}\doxymbox{\hyperlink{classDevLab__MPU6050_ab08479346f91704b326fb015f2ccbb26}{00107}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_ab08479346f91704b326fb015f2ccbb26}{DevLab\_MPU6050::setClkSource}}(uint8\_t\ clkSource)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00108}00108\ \ \ \textcolor{keywordflow}{if}(clkSource\ >\ 7)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00110}00110\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00111}00111\ \ \ uint8\_t\ currentConfig\ =\ readRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_aa22e489fc09f853f23e2586aac531ed6}{REG\_PWR\_MGMT\_1}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00112}00112\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_aa22e489fc09f853f23e2586aac531ed6}{REG\_PWR\_MGMT\_1}},\ (currentConfig\ \&\ 0xF8)\ |\ (clkSource\ \&\ 0x07));}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00113}00113\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00115}\doxymbox{\hyperlink{classDevLab__MPU6050_ad914809bd25aec5329bc2627f6a48632}{00115}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_ad914809bd25aec5329bc2627f6a48632}{DevLab\_MPU6050::setIntPinCfg}}(uint8\_t\ intPinCfg)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00116}00116\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a26d31f2ecb2db6e0c183733b48f30b37}{REG\_INT\_PIN\_CFG}},\ intPinCfg);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00117}00117\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00119}\doxymbox{\hyperlink{classDevLab__MPU6050_a9b665554cf1cffcf90cd9098b8f574d8}{00119}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_ad914809bd25aec5329bc2627f6a48632}{DevLab\_MPU6050::setIntPinCfg}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig}{interruptPinConfig}}\ \&cfg)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00120}00120\ \ \ uint8\_t\ value\ =\ (cfg.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig_ad7a342a8c3b8cfbdb5ff33fe29144174}{activeLow}}\ \ \ \ \ \ \ \ \ \ \ \ <<\ 7)\ |}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (cfg.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig_ab2b6593dc52faece531560aa076a2592}{openDrain}}\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ 6)\ |}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (cfg.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig_a015282e482dddd79ed788704ef9a4ec1}{latchUntilCleared}}\ \ \ \ \ <<\ 5)\ |}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (cfg.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig_a4c3eff04bc760a6fbba8d1e629d0cd7f}{clearOnRead}}\ \ \ \ \ \ \ \ \ \ \ <<\ 4)\ |}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (cfg.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig_a56fc04446b50b90b650fc142a8e02a1d}{fsyncActiveLow}}\ \ \ \ \ \ \ \ <<\ 3)\ |}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (cfg.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig_a675e4fc4c7be3ba6aeb438fa8ddeb383}{enableFSyncInterrupt}}\ \ <<\ 2)\ |}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (cfg.\doxymbox{\hyperlink{structDevLab__MPU6050_1_1interruptPinConfig_a3c92c107dc89df0519f50a7ae4ce2de5}{enableI2CBypass}}\ \ \ \ \ \ \ <<\ 1);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00127}00127\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a26d31f2ecb2db6e0c183733b48f30b37}{REG\_INT\_PIN\_CFG}},\ value);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00128}00128\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00130}\doxymbox{\hyperlink{classDevLab__MPU6050_af2d049ac14c22c97124f15dc247f89f1}{00130}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_af2d049ac14c22c97124f15dc247f89f1}{DevLab\_MPU6050::enableInterrupt}}(uint8\_t\ sources)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00131}00131\ \ \ uint8\_t\ currentConfig\ =\ readRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a4c5c1b52ef4d960cba4eca99d406947a}{REG\_INT\_ENABLE}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00132}00132\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a4c5c1b52ef4d960cba4eca99d406947a}{REG\_INT\_ENABLE}},\ currentConfig\ |\ sources);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00133}00133\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00135}\doxymbox{\hyperlink{classDevLab__MPU6050_a448774cd873a400cc8359e46f5411dae}{00135}}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classDevLab__MPU6050_a448774cd873a400cc8359e46f5411dae}{DevLab\_MPU6050::disableInterrupt}}(uint8\_t\ sources)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00136}00136\ \ \ uint8\_t\ currentConfig\ =\ readRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a4c5c1b52ef4d960cba4eca99d406947a}{REG\_INT\_ENABLE}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00137}00137\ \ \ writeRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a4c5c1b52ef4d960cba4eca99d406947a}{REG\_INT\_ENABLE}},\ currentConfig\ \&\ \string~sources);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00138}00138\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00140}\doxymbox{\hyperlink{classDevLab__MPU6050_a7646fe29ef88cddb635c47da6be5af88}{00140}}\ uint8\_t\ \doxymbox{\hyperlink{classDevLab__MPU6050_a7646fe29ef88cddb635c47da6be5af88}{DevLab\_MPU6050::interruptStatus}}()\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00141}00141\ \ \ \textcolor{keywordflow}{return}\ readRegister8(\doxymbox{\hyperlink{DevLab__MPU6050_8h_a34aab8767fafeb628db9243bfa8f955a}{REG\_INT\_STATUS}});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00142}00142\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00148}00148\ \textcolor{comment}{/*******\ Private\ Utility\ functions\ for\ register\ access\ *******/}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00149}00149\ \textcolor{keywordtype}{void}\ DevLab\_MPU6050::writeRegister8(uint8\_t\ reg,\ uint8\_t\ value)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00150}00150\ \ \ \_wire-\/>beginTransmission(\_address);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00151}00151\ \ \ \_wire-\/>write(reg);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00152}00152\ \ \ \_wire-\/>write(value);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00153}00153\ \ \ \_wire-\/>endTransmission();}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00154}00154\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00156}00156\ uint8\_t\ DevLab\_MPU6050::readRegister8(uint8\_t\ reg)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00157}00157\ \ \ \_wire-\/>beginTransmission(\_address);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00158}00158\ \ \ \_wire-\/>write(reg);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00159}00159\ \ \ \_wire-\/>endTransmission(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00161}00161\ \ \ \_wire-\/>requestFrom(\_address,\ (uint8\_t)1,\ (uint8\_t)\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00162}00162\ \ \ \textcolor{keywordflow}{if}\ (\_wire-\/>available()\ <\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00163}00163\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00164}00164\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00166}00166\ \ \ \textcolor{keywordflow}{return}\ \_wire-\/>read();}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00167}00167\ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00169}00169\ int16\_t\ DevLab\_MPU6050::readRegister16(uint8\_t\ reg)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00170}00170\ \ \ \_wire-\/>beginTransmission(\_address);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00171}00171\ \ \ \_wire-\/>write(reg);}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00172}00172\ \ \ \_wire-\/>endTransmission(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00174}00174\ \ \ \_wire-\/>requestFrom(\_address,\ (uint8\_t)2,\ (uint8\_t)\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00175}00175\ \ \ \textcolor{keywordflow}{if}\ (\_wire-\/>available()\ <\ 2)\ \{}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00176}00176\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00177}00177\ \ \ \}}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00179}00179\ \ \ \textcolor{keywordflow}{return}\ (int16\_t)((uint16\_t)\_wire-\/>read()\ <<\ 8\ |\ (uint16\_t)\_wire-\/>read());}
+\DoxyCodeLine{\Hypertarget{DevLab__MPU6050_8cpp_source_l00180}00180\ \}}
+
+\end{DoxyCode}

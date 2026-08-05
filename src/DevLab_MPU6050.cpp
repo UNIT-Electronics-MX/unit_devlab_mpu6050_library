@@ -35,7 +35,7 @@ bool DevLab_MPU6050::begin(uint8_t sdaPin, uint8_t sclPin, uint32_t clock) {
   writeRegister8(REG_SMPLRT_DIV, 0x07);
   writeRegister8(REG_CONFIG, 0x06);
   writeRegister8(REG_GYRO_CONFIG, 0x08);
-  writeRegister8(REG_ACCEL_CONFIG, 0x00);
+  writeRegister8(REG_ACCEL_CONFIG, 0x10);
 
   return true;
 }

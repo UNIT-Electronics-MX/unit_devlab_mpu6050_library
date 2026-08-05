@@ -7,41 +7,6 @@
   output (e.g. importing the log into a spreadsheet or a script for
   analysis).
 
-  Clock source is fixed (not swept): Invensense recommends locking it
-  to the PLL with a gyro reference for stability, and value 7 halts
-  the timing generator, which would break sampling mid-sweep.
-
-  SMPLRT_DIV is computed once per DLPF_CFG so the resulting output
-  Nyquist frequency (outputRate/2) stays at or above MARGIN times the
-  DLPF's own corner frequency (see computeSmplrtDivTable()).
-
-  Settling time after each DLPF change is derived from the DLPF's own
-  low-pass corner frequency (accel/gyro bandwidth per the register map,
-  MPU-6000/6050 datasheet section 4.2) as 5 filter time constants
-  (~99% step settling), plus sample periods so a fresh filtered sample
-  is guaranteed to be latched.
-
-  Settling time after an AFS_SEL/FS_SEL change waits several sample
-  periods (not just one) before reading -- a scale change takes effect
-  on the NEXT ADC conversion cycle, not instantly on register write,
-  and one nominal period leaves no margin for I2C transaction latency
-  or conversion jitter.
-
-  Repeat-call fix (IMPORTANT): when sweepAndPrint() is called many times
-  in a row (e.g. `for (i=0;i<100;i++) sweepAndPrint();` from setup()),
-  the FIRST combination of one call (AFS_SEL=0, DLPF_CFG=0) follows
-  immediately after the LAST combination of the PREVIOUS call
-  (AFS_SEL=3, DLPF_CFG=6), with no settle in between -- that transition
-  happens outside the sweep's own nested loops, so it was skipping the
-  settle logic entirely. This showed up empirically: in a 100-repeat run,
-  18 of the 100 first-row samples (AFS_SEL=0/FS_SEL=0/DLPF_CFG=0) carried
-  over raw accel values matching AFS_SEL=3 (~1780 raw, i.e. ~0.11g instead
-  of the correct ~0.86g for AFS_SEL=0) -- a stale-scale artifact from the
-  end of the previous call, not sensor noise. sweepAndPrint() now applies
-  and settles the FIRST combination explicitly before entering its loops,
-  so every call is self-contained regardless of what state the sensor
-  was left in by a prior call.
-
   CSV columns:
   accelScale,gyroScale,dlpf,smplrtDiv,accX,accY,accZ,gyrX,gyrY,gyrZ,tempC,
   gyroBW_Hz,outputRate_Hz,nyquist_Hz,dlpf_below_nyquist

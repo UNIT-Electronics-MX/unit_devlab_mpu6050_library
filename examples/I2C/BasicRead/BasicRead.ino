@@ -31,7 +31,7 @@ void loop() {
     Serial.print(" | aY = ");
     Serial.print(data.accY / 16384.0f);
     Serial.print(" | aZ = ");
-    Serial.print(data.accZ / 16384.0f);
+    Serial.print(data.accZ /4096.0f);
 
     Serial.print(" | temp = ");
     Serial.print(data.temperatureC, 2);
