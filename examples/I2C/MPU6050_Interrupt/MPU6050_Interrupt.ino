@@ -1,5 +1,10 @@
 #include <DevLab_MPU6050.h>
 
+// IRAM_ATTR only exists on ESP32; define it as empty on other platforms.
+#ifndef IRAM_ATTR
+#define IRAM_ATTR
+#endif
+
 #define SDA_PIN 12
 #define SCL_PIN 22
 #define MPU6050_ADDR 0x68

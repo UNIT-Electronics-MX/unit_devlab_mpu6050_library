@@ -1,5 +1,10 @@
 #include <DevLab_MPU6050.h>
 
+// IRAM_ATTR only exists on ESP32; define it as empty on other platforms.
+#ifndef IRAM_ATTR
+#define IRAM_ATTR
+#endif
+
 #define SDA_PIN 6
 #define SCL_PIN 7
 #define MPU6050_ADDR 0x68
@@ -9,9 +14,7 @@ volatile uint32_t irqCount = 0;
 
 DevLab_MPU6050 imu(Wire, MPU6050_ADDR);
 SensorData data;
-interruptPinConfig intCfg{
-  0,0,1,0,0,0,0
-};
+interruptPinConfig intCfg;
 
 void IRAM_ATTR onMPUInterrupt() {
   irqCount++;
@@ -33,6 +36,7 @@ void setup() {
     }
   }
 
+  intCfg.latchUntilCleared = true; // INT stays asserted until INT_STATUS is read
   imu.setIntPinCfg(intCfg);
 
   imu.enableInterrupt(INT_DATA_READY);

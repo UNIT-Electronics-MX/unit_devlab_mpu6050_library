@@ -27,11 +27,11 @@ void setup() {
 void loop() {
   if (imu.readData(data)) {
     Serial.print("aX = ");
-    Serial.print(data.accX / 16384.0f);
+    Serial.print(data.accX / 4096.0f);
     Serial.print(" | aY = ");
-    Serial.print(data.accY / 16384.0f);
+    Serial.print(data.accY / 4096.0f);
     Serial.print(" | aZ = ");
-    Serial.print(data.accZ /4096.0f);
+    Serial.print(data.accZ / 4096.0f);
 
     Serial.print(" | temp = ");
     Serial.print(data.temperatureC, 2);

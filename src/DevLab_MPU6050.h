@@ -23,6 +23,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include <DevLab_I2C_Interface.h>
 
 #define MPU6050_ADDRESS_AD0_LOW  0x68
 #define MPU6050_ADDRESS_AD0_HIGH 0x69
@@ -87,6 +88,13 @@ public:
    * @return True if the MPU6050 was initialized successfully, false otherwise.
    */
   bool begin(uint8_t sdaPin, uint8_t sclPin, uint32_t clock = 400000);
+
+  /**
+   * @brief Initialize the MPU6050 using the default pins of the I2C bus.
+   * @param clock The I2C clock frequency.
+   * @return True if the MPU6050 was initialized successfully, false otherwise.
+   */
+  bool begin(uint32_t clock = 400000);
 
   /**
    * @brief Read the sensor data.
@@ -163,12 +171,12 @@ public:
   uint8_t interruptStatus();
 
 private:
-  TwoWire *_wire;
-  uint8_t _address;
+  DevLab_I2C_Interface _bus;
 
   uint8_t _accelScale;
   uint8_t _gyroScale;
 
+  bool initDevice();
   void writeRegister8(uint8_t reg, uint8_t value);
   uint8_t readRegister8(uint8_t reg);
   int16_t readRegister16(uint8_t reg);

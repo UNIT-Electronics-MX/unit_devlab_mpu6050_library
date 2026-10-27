@@ -6,22 +6,31 @@
   register access over I2C.
 
   Author:
+  Jonathan Mejorado
   UNIT Electronics
 */
 
 #include "DevLab_MPU6050.h"
 
-DevLab_MPU6050::DevLab_MPU6050(TwoWire &wire, uint8_t address) {
-  _wire = &wire;
-  _address = address;
+DevLab_MPU6050::DevLab_MPU6050(TwoWire &wire, uint8_t address)
+  : _bus(wire, address) {
   _accelScale = 0;
   _gyroScale = 0;
 }
 
 bool DevLab_MPU6050::begin(uint8_t sdaPin, uint8_t sclPin, uint32_t clock) {
-  _wire->begin(sdaPin, sclPin);
-  _wire->setClock(clock);
+  _bus.setClock(clock);
+  _bus.begin(sdaPin, sclPin);
+  return initDevice();
+}
 
+bool DevLab_MPU6050::begin(uint32_t clock) {
+  _bus.setClock(clock);
+  _bus.begin();
+  return initDevice();
+}
+
+bool DevLab_MPU6050::initDevice() {
   delay(50);
 
   uint8_t whoAmI = WhoAmI();
@@ -45,28 +54,22 @@ uint8_t DevLab_MPU6050::WhoAmI() {
 }
 
 bool DevLab_MPU6050::readData(SensorData &dataOut) {
-  _wire->beginTransmission(_address);
-  _wire->write(REG_ACCEL_XOUT_H);
-  if (_wire->endTransmission(false) != 0) {
+  uint8_t buf[14];
+  if (!_bus.readBytes(REG_ACCEL_XOUT_H, buf, sizeof(buf))) {
     return false;
   }
 
-  _wire->requestFrom(_address, (uint8_t)14, (uint8_t)true);
+  // The MPU6050 sends the high byte first (big-endian).
+  dataOut.accX = (int16_t)((uint16_t)buf[0] << 8 | buf[1]);
+  dataOut.accY = (int16_t)((uint16_t)buf[2] << 8 | buf[3]);
+  dataOut.accZ = (int16_t)((uint16_t)buf[4] << 8 | buf[5]);
 
-  if (_wire->available() < 14) {
-    return false;
-  }
-
-  dataOut.accX = (int16_t)(_wire->read() << 8 | _wire->read());
-  dataOut.accY = (int16_t)(_wire->read() << 8 | _wire->read());
-  dataOut.accZ = (int16_t)(_wire->read() << 8 | _wire->read());
-
-  dataOut.tempRaw = (int16_t)(_wire->read() << 8 | _wire->read());
+  dataOut.tempRaw = (int16_t)((uint16_t)buf[6] << 8 | buf[7]);
   dataOut.temperatureC = dataOut.tempRaw / 340.0f + 36.53f;
 
-  dataOut.gyrX = (int16_t)(_wire->read() << 8 | _wire->read());
-  dataOut.gyrY = (int16_t)(_wire->read() << 8 | _wire->read());
-  dataOut.gyrZ = (int16_t)(_wire->read() << 8 | _wire->read());
+  dataOut.gyrX = (int16_t)((uint16_t)buf[8] << 8 | buf[9]);
+  dataOut.gyrY = (int16_t)((uint16_t)buf[10] << 8 | buf[11]);
+  dataOut.gyrZ = (int16_t)((uint16_t)buf[12] << 8 | buf[13]);
 
   return true;
 }
@@ -147,34 +150,17 @@ uint8_t DevLab_MPU6050::interruptStatus() {
 
 /******* Private Utility functions for register access *******/
 void DevLab_MPU6050::writeRegister8(uint8_t reg, uint8_t value) {
-  _wire->beginTransmission(_address);
-  _wire->write(reg);
-  _wire->write(value);
-  _wire->endTransmission();
+  _bus.writeRegister8(reg, value);
 }
 
 uint8_t DevLab_MPU6050::readRegister8(uint8_t reg) {
-  _wire->beginTransmission(_address);
-  _wire->write(reg);
-  _wire->endTransmission(false);
-
-  _wire->requestFrom(_address, (uint8_t)1, (uint8_t)true);
-  if (_wire->available() < 1) {
-    return 0;
-  }
-
-  return _wire->read();
+  uint8_t value = 0;
+  _bus.readRegister8(reg, value);
+  return value;
 }
 
 int16_t DevLab_MPU6050::readRegister16(uint8_t reg) {
-  _wire->beginTransmission(_address);
-  _wire->write(reg);
-  _wire->endTransmission(false);
-
-  _wire->requestFrom(_address, (uint8_t)2, (uint8_t)true);
-  if (_wire->available() < 2) {
-    return 0;
-  }
-
-  return (int16_t)((uint16_t)_wire->read() << 8 | (uint16_t)_wire->read());
+  uint16_t value = 0;
+  _bus.readRegister16BE(reg, value);
+  return (int16_t)value;
 }
